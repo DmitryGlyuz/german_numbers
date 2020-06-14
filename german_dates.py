@@ -11,67 +11,11 @@ ord_numbers_dict = {
 
 }
 
-months = {
-    1: {'days': 31,
-        'english': 'January',
-        'german': 'Januar',
-        'russian': 'января'
-        },
-    2: {'days': 28,
-        'english': 'February',
-        'german': 'Februar',
-        'russian': 'февраля'
-        },
-    3: {'days': 31,
-        'english': 'March',
-        'german': 'März',
-        'russian': 'марта'
-        },
-    4: {'days': 30,
-        'english': 'April',
-        'german': 'April',
-        'russian': 'апреля'
-        },
-    5: {'days': 31,
-        'english': 'May',
-        'german': 'Mai',
-        'russian': 'мая'
-        },
-    6: {'days': 30,
-        'english': 'June',
-        'german': 'Juni',
-        'russian': 'июня'
-        },
-    7: {'days': 31,
-        'english': 'July',
-        'german': 'Juli',
-        'russian': 'июля'
-        },
-    8: {'days': 31,
-        'english': 'August',
-        'german': 'August',
-        'russian': 'августа'
-        },
-    9: {'days': 30,
-        'english': 'September',
-        'german': 'September',
-        'russian': 'сентября'
-        },
-    10: {'days': 31,
-        'english': 'October',
-        'german': 'Oktober',
-        'russian': 'октября'
-        },
-    11: {'days': 30,
-        'english': 'November',
-        'german': 'November',
-        'russian': 'ноября'
-        },
-    12: {'days': 31,
-        'english': 'December',
-        'german': 'Dezember',
-        'russian': 'декабря'
-        }
+months_dict ={
+'days': [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+'english': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+'german': ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+'russian': ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
 }
 
 
@@ -95,7 +39,7 @@ def print_dates():
         str_month = '0' + str(month)
     else:
         str_month = str(month)
-    day = random.randint(1, months[month]['days'])
+    day = random.randint(1, months_dict['days'][month - 1])
     day_words = int_to_ordinal(day)
     year = random.randint(1800, 2036)
     if year > 1999:
@@ -105,9 +49,9 @@ def print_dates():
         year_second_part = int(str(year)[2:])
         year_words = int_to_german(year_first_part) + 'hundert' + int_to_german(year_second_part)
     short_date = f'{day}.{str_month}.{year}'
-    russian_date = f'{day} {months[month]["russian"]} {year} г.'
-    german_date = f'{day}. {months[month]["german"]} {year}'
-    german_date_words = f'{day_words} {months[month]["german"]} {year_words}'
+    russian_date = f'{day} {months_dict["russian"][month - 1]} {year} г.'
+    german_date = f'{day}. {months_dict["german"][month - 1]} {year}'
+    german_date_words = f'{day_words} {months_dict["german"][month - 1]} {year_words}'
     result = f'{short_date}\n' \
              f'   {russian_date}\n' \
              f'   {german_date}\n' \
