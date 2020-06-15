@@ -72,15 +72,19 @@ def print_dates():
     # Russian format
     russian_date = f'{day} {months_dict["russian"][month - 1]} {year} г.'
 
+    # American format
+    english_date = f'{months_dict["english"][month - 1]} {day}, {year}'
+
     # German format with numbers
     german_date = f'{day}. {months_dict["german"][month - 1]} {year}'
 
     # The entire date is written by german words
     german_date_words = f'{day_words} {months_dict["german"][month - 1]} {year_words}'
 
-    # Output data
-    result = f'{short_date}\n' \
+    # Output
+    result = f'{short_date} / {english_date}\n' \
              f'   {russian_date}\n' \
+             f'   German:\n' \
              f'   {german_date}\n' \
              f'   {german_date_words}\n'
     return result
