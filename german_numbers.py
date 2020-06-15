@@ -1,40 +1,45 @@
-numbers_dict = {
-    0: 'null',
-    1: 'eins',
-    2: 'zwei',
-    3: 'drei',
-    4: 'vier',
-    5: 'fünf',
-    6: 'sechs',
-    7: 'sieben',
-    8: 'acht',
-    9: 'neun',
-    10: 'zehn',
-    11: 'elf',
-    12: 'zwölf',
-    13: 'dreizehn',
-    14: 'vierzehn',
-    15: 'fünfzehn',
-    16: 'sechzehn',
-    17: 'siebzehn',
-    18: 'achtzehn',
-    19: 'neunzehn',
-    20: 'zwanzig',
-    30: 'dreißig',
-    40: 'vierzig',
-    50: 'fünfzig',
-    60: 'sechzig',
-    70: 'siebzig',
-    80: 'achtzig',
-    90: 'neunzig'
-
-}
+# This is main function, it converts simple integer to string value with this number written in German
+# Other files in this project use it
 
 
 def int_to_german(number):
+    # Dictionary with numbers in German
+    numbers_dict = {
+        0: 'null',
+        1: 'eins',
+        2: 'zwei',
+        3: 'drei',
+        4: 'vier',
+        5: 'fünf',
+        6: 'sechs',
+        7: 'sieben',
+        8: 'acht',
+        9: 'neun',
+        10: 'zehn',
+        11: 'elf',
+        12: 'zwölf',
+        13: 'dreizehn',
+        14: 'vierzehn',
+        15: 'fünfzehn',
+        16: 'sechzehn',
+        17: 'siebzehn',
+        18: 'achtzehn',
+        19: 'neunzehn',
+        20: 'zwanzig',
+        30: 'dreißig',
+        40: 'vierzig',
+        50: 'fünfzig',
+        60: 'sechzig',
+        70: 'siebzig',
+        80: 'achtzig',
+        90: 'neunzig'
+
+    }
+    # We work only with this range
     if number > 999999999999999 or number < 0:
         raise ValueError
 
+    # Take three digits from some part of the number and work with them
     def units_tens_hundreds(threedigits):
         # Units
         units_str_slice = str(threedigits)[-1]
@@ -69,6 +74,7 @@ def int_to_german(number):
         german_three_digits = hundreds + tens_units
         return german_three_digits
 
+    # First part of number is ready!
     result = units_tens_hundreds(number)
 
     # Thousands
@@ -84,11 +90,14 @@ def int_to_german(number):
 
     # Large numbers
     def large_numbers(key):
+        # Dictonary with large numbers in German
         large_numbers_dict = {
             'millions': ('Million', 'Millionen'),
             'billions': ('Milliarde', 'Milliarden'),
             'trillions': ('Billion', 'Billionen')
         }
+
+        # Position of large values in number
         positions = {
             'millions': (-9, -6),
             'billions': (-12, -9),
@@ -99,6 +108,7 @@ def int_to_german(number):
             return ''
         part_of_number = units_tens_hundreds(int(str(number)[:pos[1]]))
 
+        # Cut the ending if number ends with 1
         if part_of_number.endswith('eins'):
             if part_of_number == 'eins':
                 part_of_number = 'eine'
@@ -109,6 +119,7 @@ def int_to_german(number):
         else:
             return part_of_number + ' ' + large_numbers_dict[key][1] + ' '
 
+    # Merge everything
     if number >= 1000000:
         result = large_numbers('millions') + result
     if number >= 1000000000:
@@ -118,13 +129,14 @@ def int_to_german(number):
     return result
 
 
+# Simple interface where we can check how our function works
+# Enter any non-Int to exit
 if __name__ == '__main__':
     while True:
         try:
             n = int(input('Number: '))
             print(int_to_german(n))
-            print(int_to_ord_german(n))
-        except:
+        except ValueError:
             print('Tschüss!')
             exit()
 
