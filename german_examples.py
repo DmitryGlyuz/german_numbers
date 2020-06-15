@@ -14,6 +14,7 @@ mode = 0
 mode = interface.input_int('Select mode: ', 1, 3)
 
 operations_list = ['+', '-', '*', '/']
+operations_log = []
 
 # Dictionary with math operations in German
 german_operations_dict = {
@@ -26,13 +27,32 @@ german_operations_dict = {
 
 # Prepare data for writing math examples
 def print_examples():
+    # Alternate operations (for first two modes)
+    def alternate(op1, op2):
+        if not operations_log:
+            return op1
+        else:
+            return op2 if operations_log[-1] == op1 else op1
+
     # Selection type of math operation
     if mode == 1:
-        operation = random.choice(operations_list[:2])
+        operation = alternate('+', "-")
     elif mode == 2:
-        operation = random.choice(operations_list[2:])
+        operation = alternate('*', '/')
     else:
-        operation = random.choice(operations_list)
+        # If we alredy have 4 examples, clear log and choose any new random operation, but not last
+        if len(operations_log) == 4:
+            available_operations = operations_list[-1]
+            # And clear log
+            operations_log.clear()
+        else:
+            # Choose any random operation which is not in log
+            available_operations = operations_list[:]
+            for op in operations_log:
+                available_operations.remove(op)
+        operation = random.choice(available_operations)
+
+    # Add operation to log
     operation_german = german_operations_dict[operation]
 
     # Generate firs random number
@@ -55,6 +75,8 @@ def print_examples():
     # Strings with example by numbers and words
     example_numbers = f'{x} {operation} {y} = {z}'
     example_words = int_to_german(x) + ' ' + operation_german + ' ' + int_to_german(y) + ' gleich ' + int_to_german(z)
+
+    operations_log.append(operation)
 
     # Send these strings to interface script
     return example_numbers, example_words
