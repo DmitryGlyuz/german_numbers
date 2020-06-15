@@ -17,12 +17,13 @@ def input_int(prompt, min_n, max_n):
 
 
 # This function shows random content from another modules
-def generator(func, things, show_second_list=False, min_num=1, max_num=30, second_list_header=''):
+def generator(func, things, show_second_list=False, second_list_header='', min_num=1, max_num=30):
     # Enter the number of things to prtint
     num_of_outputs = input_int(f'Enter the number of {things} (from {min_num} to {max_num}): ', min_num, max_num)
 
     # Output
     second_list = [] if show_second_list is True else None
+    print()
     for i in range(1, num_of_outputs + 1):
         if show_second_list is True:
             (first_out, second_out) = func()
@@ -33,7 +34,7 @@ def generator(func, things, show_second_list=False, min_num=1, max_num=30, secon
 
     # Print separated list
     if show_second_list is True:
-        print(second_list_header)
+        print(f'\n{second_list_header}')
         for line in second_list:
             print(f'{second_list.index(line) + 1}. {line}')
 

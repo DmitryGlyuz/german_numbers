@@ -83,4 +83,4 @@ def print_examples():
 
 
 # Run simple console interface which show random content with user's parameters
-interface.generator(print_examples, 'examples', True)
+interface.generator(print_examples, 'examples', True, 'Deutsche Wörter:')
