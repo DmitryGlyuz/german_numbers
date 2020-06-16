@@ -37,10 +37,24 @@ def int_to_ordinal(number):
     return 'der ' + ord_number
 
 
+# Lists of numbers that have already been used, so that they do not repeat
+days_log = []
+months_log = []
+years_log = []
+centuries_log = []
+
+# Tuple with range of years in three used centuries
+centuries = ((1800, 1899), (1900, 1999), (2000, 2030) )
+
 # Prepare data for writing dates by numbers and words
 def print_dates():
+    if len(months_log) == 12:
+        months_log.clear()
+    if len(centuries_log) == 3:
+        centuries_log.clear()
+
     # Choose random month
-    month = random.randint(1, 12)
+    month = interface.new_random_value(1, 12, months_log)
 
     # Value str_month is for writing a date in a short format
     # Add zero in the begin if day < 10
@@ -50,13 +64,17 @@ def print_dates():
         str_month = str(month)
 
     # Generate random day. Take max value from months_dict
-    day = random.randint(1, months_dict['days'][month - 1])
+    day = interface.new_random_value(1, months_dict['days'][month - 1], days_log)
 
     # Convert day to German ordinal
     day_words = int_to_ordinal(day)
 
+    # Choose century avoiding repeats
+    century_index = interface.new_random_value(0, 2, centuries_log)
+    (min_year, max_year) = centuries[century_index]
+
     # Generate random year
-    year = random.randint(1800, 2036)
+    year = interface.new_random_value(min_year, max_year, years_log)
 
     # There are two ways how to write years in German. It depends on century
     if year > 1999:
