@@ -47,22 +47,6 @@ def print_examples():
         else:
             return op2 if operations_log[-1] == op1 else op1
 
-    # Generator of new random numbers. It avoid repeats
-    def new_random_value(range_min, range_max):
-        available_values = []
-        for i in range(range_min, range_max + 1):
-            # Filling the list of available numbers with numbers were not used
-            if i not in numbers_log:
-                available_values.append(i)
-        # Take any random value if all numbers in the range were used
-        if not available_values:
-            value = random.randint(range_min, range_max -1)
-        else:
-            # If we have available numbers -> Take one of them
-            value = random.choice(available_values)
-            numbers_log.append(value)
-        return value
-
     # Selection type of math operation
     if mode == 1:
         operation = alternate('+', "-")
@@ -93,12 +77,12 @@ def print_examples():
 
     # Generate random numbers and result
     if operation == '+':
-        x = new_random_value(1, 99)
-        y = new_random_value(1, 99)
+        x = interface.new_random_value(1, 99, numbers_log)
+        y = interface.new_random_value(1, 99, numbers_log)
         z = x + y
     elif operation == '-':
-        x = new_random_value(2, 99)
-        y = new_random_value(1, x)
+        x = interface.new_random_value(2, 99, numbers_log)
+        y = interface.new_random_value(1, x, numbers_log)
         z = x - y
     else:
         pair = random.choice(multipliers_list)

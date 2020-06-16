@@ -1,3 +1,6 @@
+import random
+
+
 # Input integer and repeat if something goes wrong
 def input_int(prompt, min_n, max_n):
     def print_error(message):
@@ -14,6 +17,23 @@ def input_int(prompt, min_n, max_n):
         except ValueError:
             print_error('That is not integer value')
     return number
+
+
+# Generator of new random numbers. It avoid repeats
+def new_random_value(range_min, range_max, used_list):
+    available_values = []
+    for i in range(range_min, range_max + 1):
+        # Filling the list of available numbers with numbers were not used
+        if i not in used_list:
+            available_values.append(i)
+    # Take any random value if all numbers in the range were used
+    if not available_values:
+        value = random.randint(range_min, range_max - 1)
+    else:
+        # If we have available numbers -> Take one of them
+        value = random.choice(available_values)
+        used_list.append(value)
+    return value
 
 
 # This function shows random content from another modules
