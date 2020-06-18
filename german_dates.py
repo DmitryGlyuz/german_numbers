@@ -2,7 +2,7 @@
 
 from german_numbers import int_to_german
 import random
-import interface
+import core
 
 # Dictionary with ordinal numbers in German
 ord_numbers_dict = {
@@ -54,7 +54,7 @@ def print_dates():
         centuries_log.clear()
 
     # Choose random month
-    month = interface.new_random_value(1, 12, months_log)
+    month = core.new_randint(1, 12, months_log)
 
     # Value str_month is for writing a date in a short format
     # Add zero in the begin if day < 10
@@ -64,17 +64,17 @@ def print_dates():
         str_month = str(month)
 
     # Generate random day. Take max value from months_dict
-    day = interface.new_random_value(1, months_dict['days'][month - 1], days_log)
+    day = core.new_randint(1, months_dict['days'][month - 1], days_log)
 
     # Convert day to German ordinal
     day_words = int_to_ordinal(day)
 
     # Choose century avoiding repeats
-    century_index = interface.new_random_value(0, 2, centuries_log)
+    century_index = core.new_randint(0, 2, centuries_log)
     (min_year, max_year) = centuries[century_index]
 
     # Generate random year
-    year = interface.new_random_value(min_year, max_year, years_log)
+    year = core.new_randint(min_year, max_year, years_log)
 
     # There are two ways how to write years in German. It depends on century
     if year > 1999:
@@ -109,7 +109,7 @@ def print_dates():
 
 
 # Run simple console interface which show random content with user's parameters
-interface.generator(print_dates, 'dates')
+core.show(print_dates, 'dates')
 
 
 

@@ -1,7 +1,7 @@
 # This script generates simple random math examples written in German
 
 import random
-import interface
+import core
 from german_numbers import int_to_german
 
 # List of modes
@@ -11,7 +11,7 @@ print('1 - plus/minus examples\n'
 mode = 0
 
 # Input mode
-mode = interface.input_int('Select mode: ', 1, 3)
+mode = core.input_int('Select mode: ', 1, 3)
 
 operations_list = ['+', '-', '*', '/']
 operations_log = []
@@ -77,15 +77,17 @@ def print_examples():
 
     # Generate random numbers and result
     if operation == '+':
-        x = interface.new_random_value(1, 99, numbers_log)
-        y = interface.new_random_value(1, 99, numbers_log)
+        x = core.new_randint(1, 99, numbers_log)
+        y = core.new_randint(1, 99, numbers_log)
         z = x + y
     elif operation == '-':
-        x = interface.new_random_value(2, 99, numbers_log)
-        y = interface.new_random_value(1, x, numbers_log)
+        x = core.new_randint(2, 99, numbers_log)
+        y = core.new_randint(1, x, numbers_log)
         z = x - y
     else:
+        # Take one random pair from generated list
         pair = random.choice(multipliers_list)
+        # And remove
         multipliers_list.remove(pair)
 
         # Random order of multipliers
@@ -107,4 +109,4 @@ def print_examples():
 
 
 # Run simple console interface which show random content with user's parameters
-interface.generator(print_examples, 'examples', True, 'Deutsche Wörter:')
+core.show(print_examples, 'examples', True, 'Deutsche Wörter:')

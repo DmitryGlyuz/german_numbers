@@ -20,7 +20,7 @@ def input_int(prompt, min_n, max_n):
 
 
 # Generator of new random numbers. It avoid repeats
-def new_random_value(range_min, range_max, used_list):
+def new_randint(range_min, range_max, used_list):
     available_values = []
     for i in range(range_min, range_max + 1):
         # Filling the list of available numbers with numbers were not used
@@ -37,8 +37,8 @@ def new_random_value(range_min, range_max, used_list):
 
 
 # This function shows random content from another modules
-def generator(func, things, show_second_list=False, second_list_header='', min_num=1, max_num=30):
-    # Enter the number of things to prtint
+def show(func, things, show_second_list=False, second_list_header='', min_num=1, max_num=30):
+    # Enter the number of things to print
     num_of_outputs = input_int(f'Enter the number of {things} (from {min_num} to {max_num}): ', min_num, max_num)
 
     # Output
