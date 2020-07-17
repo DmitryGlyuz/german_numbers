@@ -2,7 +2,6 @@
 
 import random
 import core
-from german_numbers import int_to_german
 
 # List of modes
 print('1 - plus/minus examples\n'
@@ -98,7 +97,7 @@ def print_examples():
 
     # Strings with example by numbers and words
     example_numbers = f'{x} {operation} {y} = {z}'
-    example_words = int_to_german(x) + ' ' + operation_german + ' ' + int_to_german(y) + ' gleich ' + int_to_german(z)
+    example_words = core.int_to_german(x) + ' ' + operation_german + ' ' + core.int_to_german(y) + ' gleich ' + core.int_to_german(z)
 
     operations_log.append(operation)
 

@@ -1,7 +1,5 @@
 # This script generates random dates in German
 
-from german_numbers import int_to_german
-import random
 import core
 
 # Dictionary with ordinal numbers in German
@@ -29,9 +27,9 @@ def int_to_ordinal(number):
         if number in ord_numbers_dict.keys():
             ord_number = ord_numbers_dict[number]
         else:
-            ord_number = int_to_german(number) + 'te'
+            ord_number = core.int_to_german(number) + 'te'
     elif 20 <= number <= 31:
-        ord_number = int_to_german(number) + 'ste'
+        ord_number = core.int_to_german(number) + 'ste'
     else:
         raise ValueError
     return 'der ' + ord_number
@@ -78,11 +76,11 @@ def print_dates():
 
     # There are two ways how to write years in German. It depends on century
     if year > 1999:
-        year_words = int_to_german(year)
+        year_words = core.int_to_german(year)
     else:
         year_first_part = int(str(year)[:2])
         year_second_part = int(str(year)[2:])
-        year_words = int_to_german(year_first_part) + 'hundert' + int_to_german(year_second_part)
+        year_words = core.int_to_german(year_first_part) + 'hundert' + core.int_to_german(year_second_part)
 
     # DD.MM.YYYY
     short_date = f'{day}.{str_month}.{year}'
