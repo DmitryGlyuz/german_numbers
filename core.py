@@ -98,30 +98,30 @@ def int_to_german(number):
         raise ValueError
 
     # Take three digits from some part of the number and work with them
-    def units_tens_hundreds(threedigits):
+    def units_tens_hundreds(three_digits):
         # Units
-        units_str_slice = str(threedigits)[-1]
+        units_str_slice = str(three_digits)[-1]
         units_slice = int(units_str_slice)
-        if threedigits > 0 and str(threedigits)[-1] == '0':
+        if three_digits > 0 and str(three_digits)[-1] == '0':
             units = ''
         else:
-            units = numbers_dict[int(str(threedigits)[-1])]
+            units = numbers_dict[int(str(three_digits)[-1])]
 
         # Tens
-        if len(str(threedigits)) == 1 or str(threedigits)[-2] == '0':
+        if len(str(three_digits)) == 1 or str(three_digits)[-2] == '0':
             tens_units = units
-        elif int(str(threedigits)[-2:]) in numbers_dict.keys():
-            tens_units = numbers_dict[int(str(threedigits)[-2:])]
+        elif int(str(three_digits)[-2:]) in numbers_dict.keys():
+            tens_units = numbers_dict[int(str(three_digits)[-2:])]
         else:
-            int_tens_units = int(str(threedigits)[-2:])
+            int_tens_units = int(str(three_digits)[-2:])
             tens = numbers_dict[int_tens_units - units_slice]
             tens_units = units + 'und' + tens
 
         # Hundreds
-        if threedigits < 100:
+        if three_digits < 100:
             hundreds = ''
         else:
-            str_hundreds = str(threedigits)[-3]
+            str_hundreds = str(three_digits)[-3]
             int_hundreds = int(str_hundreds)
             if int_hundreds == 1:
                 hundreds = 'hundert'
@@ -178,7 +178,7 @@ def int_to_german(number):
             return part_of_number + ' ' + large_numbers_dict[key][1] + ' '
 
     # Merge everything
-    if number >= 1000000:
+    if number >= 1000000 :
         result = large_numbers('millions') + result
     if number >= 1000000000:
         result = large_numbers('billions') + result
