@@ -148,18 +148,18 @@ def int_to_german(number):
 
     # Large numbers
     def large_numbers(key):
-        # Dictonary with large numbers in German
+        # Dictionary with large numbers in German
         large_numbers_dict = {
-            'millions': ('Million', 'Millionen'),
-            'billions': ('Milliarde', 'Milliarden'),
-            'trillions': ('Billion', 'Billionen')
+            1000000: ('Million', 'Millionen'),
+            1000000000: ('Milliarde', 'Milliarden'),
+            1000000000000: ('Billion', 'Billionen')
         }
 
         # Position of large values in number
         positions = {
-            'millions': (-9, -6),
-            'billions': (-12, -9),
-            'trillions': (-15, -12)
+            1000000: (-9, -6),
+            1000000000: (-12, -9),
+            1000000000000: (-15, -12)
         }
         pos = positions[key]
         if len(str(number)[:pos[1]]) > 3 and str(number)[pos[0]:pos[1]] == '000':
@@ -178,10 +178,7 @@ def int_to_german(number):
             return part_of_number + ' ' + large_numbers_dict[key][1] + ' '
 
     # Merge everything
-    if number >= 1000000 :
-        result = large_numbers('millions') + result
-    if number >= 1000000000:
-        result = large_numbers('billions') + result
-    if number >= 1000000000000:
-        result = large_numbers('trillions') + result
+    for large_number in (1000000, 1000000000, 1000000000000):
+        if number >= large_number:
+            result = large_numbers(large_number) + result
     return result
