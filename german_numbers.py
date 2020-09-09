@@ -10,4 +10,3 @@ while True:
     except ValueError:
         print('Tschüss!')
         exit()
-

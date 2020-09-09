@@ -13,12 +13,15 @@ ord_numbers_dict = {
 }
 
 # This dictionary contains the number of days in each mouth and names of months in English, German and Russian
-months_dict ={
-'days': [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-'english': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-'german': ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-'russian': ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
-}
+months_dict = {
+    'days': [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+    'english': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+                'November', 'December'],
+    'german': ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
+               'November', 'Dezember'],
+    'russian': ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
+                'ноября', 'декабря']
+    }
 
 
 # Convert natural integer to German ordinal number and return with a prefix 'der'
@@ -42,7 +45,8 @@ years_log = []
 centuries_log = []
 
 # Tuple with range of years in three used centuries
-centuries = ((1800, 1899), (1900, 1999), (2000, 2030) )
+centuries = ((1800, 1899), (1900, 1999), (2000, 2030))
+
 
 # Prepare data for writing dates by numbers and words
 def print_dates():
@@ -108,6 +112,3 @@ def print_dates():
 
 # Run simple console interface which show random content with user's parameters
 core.show(print_dates, 'dates')
-
-
-
