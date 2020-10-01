@@ -75,12 +75,12 @@ def print_examples():
 
     # Generate random numbers and result
     if operation == '+':
-        x = core.new_randint(1, 99, numbers_log)
-        y = core.new_randint(1, 99, numbers_log)
+        x = core.unique_randint(1, 99, numbers_log)
+        y = core.unique_randint(1, 99, numbers_log)
         z = x + y
     elif operation == '-':
-        x = core.new_randint(2, 99, numbers_log)
-        y = core.new_randint(1, x, numbers_log)
+        x = core.unique_randint(2, 99, numbers_log)
+        y = core.unique_randint(1, x, numbers_log)
         z = x - y
     else:
         # Take one random pair from generated list

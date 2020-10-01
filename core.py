@@ -28,19 +28,14 @@ def unique_rnd(min_val, max_val, available_values):
 
 
 # Generator of new random numbers. It avoid repeats
-def new_randint(range_min, range_max, used_list):
+def unique_randint(min_val, max_val, log):
     available_values = []
-    for i in range(range_min, range_max + 1):
+    for i in range(min_val, max_val + 1):
         # Filling the list of available numbers with numbers were not used
-        if i not in used_list:
+        if i not in log[-len(range(min_val, max_val)):]:
             available_values.append(i)
-    # Take any random value if all numbers in the range were used
-    if not available_values:
-        value = random.randint(range_min, range_max - 1)
-    else:
-        # If we have available numbers -> Take one of them
-        value = random.choice(available_values)
-        used_list.append(value)
+    value = random.choice(available_values)
+    log.append(value)
     return value
 
 
