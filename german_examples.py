@@ -1,15 +1,19 @@
 # This script generates simple random math examples written in German
 
 import random
+import cli
 import core
 
-# List of modes
-print('1 - plus/minus examples\n'
-      '2 - multiplizieren/geteilt examples\n'
-      '3 - everything\n')
-
+modes_dict = {
+    1: 'plus / minus',
+    2: 'multiply / divide',
+    3: 'everything'
+}
+print('What operations do you need to output examples with?\n')
+for (k,v) in modes_dict.items():
+    print(f'{k} - {v}')
 # Input mode
-mode = core.input_int('Select mode: ', 1, 3)
+mode = modes_dict[cli.input_int('Select mode: ', 1, 3)]
 
 operations_list = ['+', '-', '*', '/']
 operations_log = []
@@ -46,7 +50,7 @@ def print_examples():
             return op2 if operations_log[-1] == op1 else op1
 
     # Selection type of math operation
-    if mode == 1:
+    if mode == 'plus / minus':
         operation = alternate('+', "-")
     else:
         # If there will be examples for multiplication and division -> generate a list with number's pairs
@@ -54,9 +58,9 @@ def print_examples():
             for m1 in range(2, 10):
                 for m2 in range(m1, 10):
                     multipliers_list.append((m1, m2))
-        if mode == 2:
+        if mode == 'multiply / divide':
             operation = alternate('*', '/')
-        elif mode == 3:
+        elif mode == 'everything':
             # If we already have 4 examples, clear log and choose any new random operation, but not last
             if len(operations_log) == 4:
                 available_operations = operations_list[:]
@@ -107,4 +111,4 @@ def print_examples():
 
 
 # Run simple console interface which show random content with user's parameters
-core.show(print_examples, 'examples', True, 'Deutsche Wörter:')
+cli.show(print_examples, 'examples', True, 'Deutsche Wörter:')

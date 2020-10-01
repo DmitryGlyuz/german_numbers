@@ -1,5 +1,5 @@
 # This script generates random dates in German
-
+import cli
 import core
 
 # Dictionary with ordinal numbers in German
@@ -111,4 +111,4 @@ def print_dates():
 
 
 # Run simple console interface which show random content with user's parameters
-core.show(print_dates, 'dates')
+cli.show(print_dates, 'dates')
