@@ -19,6 +19,14 @@ def input_int(prompt, min_n, max_n):
     return number
 
 
+def unique_rnd(min_val, max_val, available_values):
+    if not available_values:
+        available_values.extend((range(min_val, max_val + 1)))
+        random.shuffle(available_values)
+
+    return available_values.pop()
+
+
 # Generator of new random numbers. It avoid repeats
 def new_randint(range_min, range_max, used_list):
     available_values = []
