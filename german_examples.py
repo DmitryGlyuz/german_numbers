@@ -4,29 +4,28 @@ import random
 import cli
 import core
 
-modes_dict = {
-    1: 'plus / minus',
-    2: 'multiply / divide',
-    3: 'everything'
-}
-print('What operations do you need to output examples with?\n')
-for (k,v) in modes_dict.items():
-    print(f'{k} - {v}')
-# Input mode
-mode = modes_dict[cli.input_int('Select mode: ', 1, 3)]
-
-operations_list = ['+', '-', '*', '/']
+# Lists with items that have already been used, so that they will not repeat
+numbers_log = []
 operations_log = []
 
-# A list of numbers that have already been used, so that they do not repeat
-numbers_log = []
 
-# We need this boolean because we have a generator of number pair inside the function which will run several times,
-# but is must be created only onc time
-first_run = True
+def random_multipliers():
+    outgoing_list = []
+    for m1 in range(2, 10):
+        for m2 in range(m1, 10):
+            outgoing_list.append((m1, m2))
+    random.shuffle(outgoing_list)
+    return outgoing_list
 
-# This is a list where we will put these pairs
-multipliers_list = []
+
+multipliers_list = random_multipliers()
+
+
+def get_pair():
+    if not multipliers_list:
+        multipliers_list.extend(random_multipliers())
+    return multipliers_list.pop()
+
 
 # Dictionary with math operations in German
 german_operations_dict = {
@@ -36,46 +35,43 @@ german_operations_dict = {
     '/': 'geteilt durch'
 }
 
+# Get list with operations from previous dictionary's keys
+operations_list = [k for k in german_operations_dict.keys()]
+
+# Dictionary with operating modes
+modes_dict = {
+    1: 'plus / minus',
+    2: 'multiply / divide',
+    3: 'everything'
+}
+
+
+def get_lines(incoming_list, numeric=True):
+    output = ''
+    number = 1
+    for element in incoming_list:
+        if numeric is True:
+            output += f'{number}. {element}\n'
+            number += 1
+        else:
+            output += f'{element}\n'
+    return output
+
 
 # Prepare data for writing math examples
-def print_examples():
-    # Take boolean from gloval scope. We will turn it off in the end of this function
-    global first_run
-
+def get_example_parts(mode):
     # Alternate operations (for first two modes)
-    def alternate(op1, op2):
-        if not operations_log:
-            return op1
-        else:
-            return op2 if operations_log[-1] == op1 else op1
+    def alternate(operations):
+        return core.unique_item(operations, operations_log)
 
     # Selection type of math operation
     if mode == 'plus / minus':
-        operation = alternate('+', "-")
+        operation = alternate(operations_list[:2])
     else:
-        # If there will be examples for multiplication and division -> generate a list with number's pairs
-        if first_run:
-            for m1 in range(2, 10):
-                for m2 in range(m1, 10):
-                    multipliers_list.append((m1, m2))
         if mode == 'multiply / divide':
-            operation = alternate('*', '/')
+            operation = alternate(operations_list[2:])
         elif mode == 'everything':
-            # If we already have 4 examples, clear log and choose any new random operation, but not last
-            if len(operations_log) == 4:
-                available_operations = operations_list[:]
-                available_operations.remove(operations_log[-1])
-                # And clear log
-                operations_log.clear()
-            else:
-                # Choose any random operation which is not in log
-                available_operations = operations_list[:]
-                for op in operations_log:
-                    available_operations.remove(op)
-            operation = random.choice(available_operations)
-
-    # Add operation to log
-    operation_german = german_operations_dict[operation]
+            operation = alternate(operations_list)
 
     # Generate random numbers and result
     if operation == '+':
@@ -88,27 +84,63 @@ def print_examples():
         z = x - y
     else:
         # Take one random pair from generated list
-        pair = random.choice(multipliers_list)
-        # And remove
-        multipliers_list.remove(pair)
+        pair = get_pair()
 
         # Random order of multipliers
         (x, y) = pair if random.getrandbits(1) == 0 else (pair[1], pair[0])
         z = x * y
         if operation == '/':
             (x, z) = (z, x)
-
-    # Strings with example by numbers and words
-    example_numbers = f'{x} {operation} {y} = {z}'
-    example_words = f'{core.int_to_german(x)} {operation_german} {core.int_to_german(y)} gleich {core.int_to_german(z)}'
-
-    operations_log.append(operation)
-
-    # Turn off this boolean to not repeat generator's running
-    first_run = False
-    # Send these strings to interface script
-    return example_numbers, example_words
+    return x, operation, y, z
 
 
-# Run simple console interface which show random content with user's parameters
-cli.show(print_examples, 'examples', True, 'Deutsche Wörter:')
+raw_examples = []
+
+
+def make_raw_examples_list(count, mode):
+    for i in range(count):
+        raw_examples.append(get_example_parts(mode))
+
+
+def raw_example_to_string(ex):
+    (x, operation, y, result) = ex
+    return f'{x} {operation} {y} = {result}'
+
+
+def raw_example_to_german(ex):
+    german_x = core.int_to_german(ex[0])
+    german_operation = german_operations_dict[ex[1]]
+    german_y = core.int_to_german(ex[2])
+    german_result = core.int_to_german(ex[3])
+    return f'{german_x} {german_operation} {german_y} gleich {german_result}'
+
+
+def convert_list(incoming_list, converting_action):
+    outgoing_list = []
+    for element in incoming_list:
+        outgoing_list.append(converting_action(element))
+    return outgoing_list
+
+
+def get_data(count, mode, numeric=True):
+    make_raw_examples_list(count, mode)
+    examples_list = convert_list(raw_examples, raw_example_to_string)
+    german_examples_list = convert_list(raw_examples, raw_example_to_german)
+    output_examples = get_lines(examples_list, numeric)
+    output_german = get_lines(german_examples_list, numeric)
+    return output_examples, output_german
+
+
+if __name__ == '__main__':
+    print('What operations do you need to output examples with?')
+    for (k, v) in modes_dict.items():
+        print(f'   {k} - {v}')
+    # Input mode
+    selected_mode = modes_dict[cli.input_int('\nSelect mode', 1, 3)]
+    number_of_examples = cli.input_int('\nEnter the number of examples', 1, 100)
+    (lines_with_examples, lines_with_german) = get_data(number_of_examples, selected_mode)
+    print(f'\nExamples:\n'
+          f'{lines_with_examples}\n'
+          f'German words:\n'
+          f'{lines_with_german}')
+

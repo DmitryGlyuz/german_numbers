@@ -13,6 +13,10 @@ def unique_randint(min_val, max_val, log):
     return value
 
 
+def unique_item(incoming_list, log):
+    return incoming_list[unique_randint(0, len(incoming_list) - 1, log)]
+
+
 # Main function which converts integers to strings with these integers in German
 def int_to_german(number):
     # Dictionary with numbers in German

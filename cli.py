@@ -6,7 +6,7 @@ def input_int(prompt, min_n, max_n):
     number = 0
     while number < min_n or number > max_n:
         try:
-            number = int(input(prompt))
+            number = int(input(f'{prompt} [{min_n} - {max_n}]: '))
             if number < min_n:
                 print_error(f'Yor number less than {min_n}')
             elif number > max_n:
