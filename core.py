@@ -140,3 +140,29 @@ def int_to_german(number):
         if number >= large_number:
             result = large_numbers(large_number) + result
     return result
+
+
+def get_lines(incoming_list, numeric=True):
+    output = ''
+    number = 1
+    for element in incoming_list:
+        if numeric is True:
+            output += f'{number}. {element}\n'
+            number += 1
+        else:
+            output += f'{element}\n'
+    return output
+
+
+def raw_list(get_something, count, *args):
+    outgoing_list = []
+    for i in range(count):
+        outgoing_list.append(get_something(*args))
+    return outgoing_list
+
+
+def convert_list(incoming_list, converting_action):
+    outgoing_list = []
+    for element in incoming_list:
+        outgoing_list.append(converting_action(*element))
+    return outgoing_list

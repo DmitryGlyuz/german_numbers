@@ -16,6 +16,10 @@ def input_int(prompt, min_n, max_n):
     return number
 
 
+def number_of_points(things, min_val, max_va):
+    return input_int(f'\nEnter the number of {things}', min_val, max_va)
+
+
 # This function shows random content from another modules
 def show(func, things, show_second_list=False, second_list_header='', min_num=1, max_num=30):
     # Enter the number of things to print

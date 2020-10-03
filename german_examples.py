@@ -46,20 +46,8 @@ modes_dict = {
 }
 
 
-def get_lines(incoming_list, numeric=True):
-    output = ''
-    number = 1
-    for element in incoming_list:
-        if numeric is True:
-            output += f'{number}. {element}\n'
-            number += 1
-        else:
-            output += f'{element}\n'
-    return output
-
-
 # Prepare data for writing math examples
-def get_example_parts(mode):
+def random_example(mode):
     # Alternate operations (for first two modes)
     def alternate(operations):
         return core.unique_item(operations, operations_log)
@@ -94,40 +82,27 @@ def get_example_parts(mode):
     return x, operation, y, z
 
 
-raw_examples = []
-
-
-def make_raw_examples_list(count, mode):
-    for i in range(count):
-        raw_examples.append(get_example_parts(mode))
-
-
-def raw_example_to_string(ex):
-    (x, operation, y, result) = ex
+def strings(x, operation, y, result):
     return f'{x} {operation} {y} = {result}'
 
 
-def raw_example_to_german(ex):
-    german_x = core.int_to_german(ex[0])
-    german_operation = german_operations_dict[ex[1]]
-    german_y = core.int_to_german(ex[2])
-    german_result = core.int_to_german(ex[3])
+def german(x, operation, y, result):
+    german_x = core.int_to_german(x)
+    german_operation = german_operations_dict[operation]
+    german_y = core.int_to_german(y)
+    german_result = core.int_to_german(result)
     return f'{german_x} {german_operation} {german_y} gleich {german_result}'
 
 
-def convert_list(incoming_list, converting_action):
-    outgoing_list = []
-    for element in incoming_list:
-        outgoing_list.append(converting_action(element))
-    return outgoing_list
+def get_data(count, mode):
+    def examples_to(something):
+        return core.convert_list(raw_examples, something)
 
-
-def get_data(count, mode, numeric=True):
-    make_raw_examples_list(count, mode)
-    examples_list = convert_list(raw_examples, raw_example_to_string)
-    german_examples_list = convert_list(raw_examples, raw_example_to_german)
-    output_examples = get_lines(examples_list, numeric)
-    output_german = get_lines(german_examples_list, numeric)
+    raw_examples = core.raw_list(random_example, count, mode)
+    examples = examples_to(strings)
+    german_examples = examples_to(german)
+    output_examples = core.get_lines(examples)
+    output_german = core.get_lines(german_examples)
     return output_examples, output_german
 
 
@@ -137,10 +112,9 @@ if __name__ == '__main__':
         print(f'   {k} - {v}')
     # Input mode
     selected_mode = modes_dict[cli.input_int('\nSelect mode', 1, 3)]
-    number_of_examples = cli.input_int('\nEnter the number of examples', 1, 100)
-    (lines_with_examples, lines_with_german) = get_data(number_of_examples, selected_mode)
+    number_of_examples = cli.number_of_points('examples', 1, 100)
+    lines_with_examples, lines_with_german = get_data(number_of_examples, selected_mode)
     print(f'\nExamples:\n'
           f'{lines_with_examples}\n'
           f'German words:\n'
           f'{lines_with_german}')
-

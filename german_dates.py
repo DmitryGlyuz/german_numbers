@@ -1,4 +1,5 @@
 # This script generates random dates in German
+
 import cli
 import core
 
@@ -44,71 +45,98 @@ months_log = []
 years_log = []
 centuries_log = []
 
-# Tuple with range of years in three used centuries
-centuries = ((1800, 1899), (1900, 1999), (2000, 2030))
+centuries_dict = {
+    19: (1800, 1899),
+    20: (1900, 1999),
+    21: (2000, 2030)
+}
 
 
-# Prepare data for writing dates by numbers and words
-def print_dates():
-    if len(months_log) == 12:
-        months_log.clear()
-    if len(centuries_log) == 3:
-        centuries_log.clear()
-
+def random_date():
     # Choose random month
     month = core.unique_randint(1, 12, months_log)
-
-    # Value str_month is for writing a date in a short format
-    # Add zero in the begin if day < 10
-    if month < 10:
-        str_month = '0' + str(month)
-    else:
-        str_month = str(month)
 
     # Generate random day. Take max value from months_dict
     day = core.unique_randint(1, months_dict['days'][month - 1], days_log)
 
-    # Convert day to German ordinal
-    day_words = int_to_ordinal(day)
-
     # Choose century avoiding repeats
-    century_index = core.unique_randint(0, 2, centuries_log)
-    (min_year, max_year) = centuries[century_index]
+    century = core.unique_randint(19, 21, centuries_log)
+    (min_year, max_year) = centuries_dict[century]
 
     # Generate random year
     year = core.unique_randint(min_year, max_year, years_log)
+    return day, month, year
 
+
+def dd_mm_yyyy(day, month, year):
+    if month < 10:
+        month_string = '0' + str(month)
+    else:
+        month_string = str(month)
+    return f'{day}.{month_string}.{year}'
+
+
+def russian(day, month, year):
+    return f'{day} {months_dict["russian"][month - 1]} {year} г.'
+
+
+def american(day, month, year):
+    return f'{months_dict["english"][month - 1]} {day}, {year}'
+
+
+def short_german(day, month, year):
+    return f'{day}. {months_dict["german"][month - 1]} {year}'
+
+
+def german(day, month, year):
+    # Convert day to German ordinal
+    day_german = int_to_ordinal(day)
     # There are two ways how to write years in German. It depends on century
     if year > 1999:
-        year_words = core.int_to_german(year)
+        year_german = core.int_to_german(year)
     else:
         year_first_part = int(str(year)[:2])
         year_second_part = int(str(year)[2:])
-        year_words = core.int_to_german(year_first_part) + 'hundert' + core.int_to_german(year_second_part)
-
-    # DD.MM.YYYY
-    short_date = f'{day}.{str_month}.{year}'
-
-    # Russian format
-    russian_date = f'{day} {months_dict["russian"][month - 1]} {year} г.'
-
-    # American format
-    english_date = f'{months_dict["english"][month - 1]} {day}, {year}'
-
-    # German format with numbers
-    german_date = f'{day}. {months_dict["german"][month - 1]} {year}'
-
-    # The entire date is written by german words
-    german_date_words = f'{day_words} {months_dict["german"][month - 1]} {year_words}'
-
-    # Output
-    result = f'{short_date} / {english_date}\n' \
-             f'   {russian_date}\n' \
-             f'   German:\n' \
-             f'   {german_date}\n' \
-             f'   {german_date_words}\n'
-    return result
+        year_german = core.int_to_german(year_first_part) + 'hundert' + core.int_to_german(year_second_part)
+    return f'{day_german} {months_dict["german"][month - 1]} {year_german}'
 
 
-# Run simple console interface which show random content with user's parameters
-cli.show(print_dates, 'dates')
+def get_lists(count):
+    def dates_to(something):
+        return core.convert_list(raw_dates, something)
+
+    raw_dates = core.raw_list(random_date, 10)
+    short_dates = dates_to(dd_mm_yyyy)
+    russian_dates = dates_to(russian)
+    american_dates = dates_to(american)
+    short_german_dates = dates_to(short_german)
+    german_dates = dates_to(german)
+    return short_dates, russian_dates, american_dates, short_german_dates ,german_dates
+
+
+def complete_output(count, short=True, us=True, ru=True, short_de=True, de=True):
+    def fill_var(mode, var_val):
+        return var_val if mode is True else ''
+
+    short_dates, russian_dates, american_dates, short_german_dates, german_dates = get_lists(count)
+    output_list = []
+    for i in range(count):
+        if short is True:
+            short_date = short_dates[i]
+            if us is True:
+                short_date += ' / '
+        else:
+            short_date = ''
+        american_date = fill_var(us, f'{american_dates[i]}\n')
+        russian_date = fill_var(ru, f'   {russian_dates[i]}\n')
+        header_german = f'   German:\n' if short_de is True or de is True else ''
+        short_german_date = fill_var(short_de, f'   {short_german_dates[i]}\n')
+        german_date = fill_var(de, f'   {german_dates[i]}\n')
+        output_list.append(f'{short_date}{american_date}{russian_date}{header_german}{short_german_date}{german_date}')
+    return core.get_lines(output_list)
+
+
+if __name__ == '__main__':
+    number_of_dates = cli.number_of_points('dates', 1, 100)
+    print(complete_output(number_of_dates))
+
