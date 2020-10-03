@@ -112,7 +112,7 @@ if __name__ == '__main__':
         print(f'   {k} - {v}')
     # Input mode
     selected_mode = modes_dict[cli.input_int('\nSelect mode', 1, 3)]
-    number_of_examples = cli.number_of_points('examples', 1, 100)
+    number_of_examples = cli.number_of_points('examples', 1, 100, True)
     lines_with_examples, lines_with_german = get_data(number_of_examples, selected_mode)
     print(f'\nExamples:\n'
           f'{lines_with_examples}\n'

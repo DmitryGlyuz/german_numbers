@@ -16,28 +16,6 @@ def input_int(prompt, min_n, max_n):
     return number
 
 
-def number_of_points(things, min_val, max_va):
-    return input_int(f'\nEnter the number of {things}', min_val, max_va)
-
-
-# This function shows random content from another modules
-def show(func, things, show_second_list=False, second_list_header='', min_num=1, max_num=30):
-    # Enter the number of things to print
-    num_of_outputs = input_int(f'Enter the number of {things} (from {min_num} to {max_num}): ', min_num, max_num)
-
-    # Output
-    second_list = [] if show_second_list is True else None
-    print()
-    for i in range(1, num_of_outputs + 1):
-        if show_second_list is True:
-            (first_out, second_out) = func()
-            second_list.append(second_out)
-        else:
-            first_out = func()
-        print(f'{i}. {first_out}')
-
-    # Print separated list
-    if show_second_list is True:
-        print(f'\n{second_list_header}')
-        for line in second_list:
-            print(f'{second_list.index(line) + 1}. {line}')
+def number_of_points(things, min_val, max_va, new_line=False):
+    first = '\n' if new_line is True else ''
+    return input_int(f'{first}Enter the number of {things}', min_val, max_va)
