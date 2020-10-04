@@ -18,7 +18,7 @@ def input_int(prompt, min_n, max_n):
     return number
 
 
-#Request the required number of items in the list
+# Request the required number of items in the list
 def number_of_points(things, min_val, max_va, new_line=False):
     first = '\n' if new_line is True else ''
     return input_int(f'{first}Enter the number of {things}', min_val, max_va)

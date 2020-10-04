@@ -52,18 +52,13 @@ def random_example(mode):
         operation = alternate(operations_list[:2])
     elif mode == 'multiply / divide':
         operation = alternate(operations_list[2:])
-    elif mode == 'everything':
+    else:
         operation = alternate(operations_list)
 
     # Generating two random numbers and calculating the result of an operation with them
-    if operation == '+':
-        x = core.unique_randint(1, 99, numbers_log)
-        y = core.unique_randint(1, 99, numbers_log)
+    if operation == '+' or operation == '-':
+        (x, y) = [core.unique_randint(1, 99, numbers_log) for _ in range(2)]
         z = x + y
-    elif operation == '-':
-        x = core.unique_randint(2, 99, numbers_log)
-        y = core.unique_randint(1, x, numbers_log)
-        z = x - y
     else:
         # Take one random pair from generated list
         pair = core.unique_item(multipliers_list, multipliers_log)
@@ -71,15 +66,19 @@ def random_example(mode):
         # Random order of multipliers
         (x, y) = pair if random.getrandbits(1) == 0 else (pair[1], pair[0])
         z = x * y
-        if operation == '/':
-            (x, z) = (z, x)
+
+    # Swap x and z if the operation is - or /
+    if operation == '-' or operation == '/':
+        (x, z) = (z, x)
     return x, operation, y, z
 
 
+# Returns a string value with an example of its parts received as input
 def strings(x, operation, y, result):
     return f'{x} {operation} {y} = {result}'
 
 
+# Returns a string value with an example written in German words
 def german(x, operation, y, result):
     german_x = core.int_to_german(x)
     german_operation = german_operations_dict[operation]
