@@ -1,4 +1,6 @@
-# Input integer and repeat if something goes wrong
+# This file contains functions for working via the command line
+
+# Input integer & show error message & repeat if something goes wrong
 def input_int(prompt, min_n, max_n):
     def print_error(message):
         print(f'Error: {message}. Try again.')
@@ -16,6 +18,7 @@ def input_int(prompt, min_n, max_n):
     return number
 
 
+#Request the required number of items in the list
 def number_of_points(things, min_val, max_va, new_line=False):
     first = '\n' if new_line is True else ''
     return input_int(f'{first}Enter the number of {things}', min_val, max_va)

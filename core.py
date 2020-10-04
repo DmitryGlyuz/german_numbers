@@ -1,23 +1,9 @@
+# This file contains data processing functions that are called from several other files
+
 import random
 
 
-# Generator of new random numbers. It avoids repeats
-def unique_randint(min_val, max_val, log):
-    available_values = []
-    for i in range(min_val, max_val + 1):
-        # Filling the list of available numbers with numbers were not used
-        if i not in log[-len(range(min_val, max_val)):]:
-            available_values.append(i)
-    value = random.choice(available_values)
-    log.append(value)
-    return value
-
-
-def unique_item(incoming_list, log):
-    return incoming_list[unique_randint(0, len(incoming_list) - 1, log)]
-
-
-# Main function which converts integers to strings with these integers in German
+# Main function which converts integers to strings with these numbers in German
 def int_to_german(number):
     # Dictionary with numbers in German
     numbers_dict = {
@@ -112,7 +98,6 @@ def int_to_german(number):
             1000000000: ('Milliarde', 'Milliarden'),
             1000000000000: ('Billion', 'Billionen')
         }
-
         # Position of large values in number
         positions = {
             1000000: (-9, -6),
@@ -142,6 +127,26 @@ def int_to_german(number):
     return result
 
 
+# Returns a random number and uses a list with already used values to avoid repetitions
+def unique_randint(min_val, max_val, log):
+    available_values = []
+    for i in range(min_val, max_val + 1):
+        # Filling the list with numbers that haven't been used yet.
+        # We take a slice of the log file to take only the required range.
+        # This way, repeats can only occur after all other available values have run out
+        if i not in log[-len(range(min_val, max_val)):]:
+            available_values.append(i)
+    value = random.choice(available_values)
+    log.append(value)
+    return value
+
+
+# Returns a random list item using the logic of the previous function
+def unique_item(incoming_list, log):
+    return incoming_list[unique_randint(0, len(incoming_list) - 1, log)]
+
+
+# Returns a string with numeric (optionally) list from a variable of type list
 def get_lines(incoming_list, numeric=True):
     output = ''
     number = 1
@@ -154,6 +159,8 @@ def get_lines(incoming_list, numeric=True):
     return output
 
 
+# Returns a list of the required length, filling it with the outputs of the specified functions.
+# Returned items require further processing
 def raw_list(get_something, count, *args):
     outgoing_list = []
     for i in range(count):
@@ -161,6 +168,7 @@ def raw_list(get_something, count, *args):
     return outgoing_list
 
 
+# Returns a list where each element of the incoming list is processed by the function specified in the parameters
 def convert_list(incoming_list, converting_action):
     outgoing_list = []
     for element in incoming_list:

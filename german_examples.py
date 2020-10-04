@@ -1,12 +1,36 @@
-# This script generates simple random math examples written in German
+# This file generates two string values with numeric lists:
+# 1. Simple random math examples
+# 2. These examples written in German
+# You can get them as two values from the outside via the function get_data(count, mode)
+#       count - number of required elements
+#       mode - which type of examples to use - addition and subtraction, multiplication and division, or all together.
+#              String values with mode names are contained in the modes_dict dictionary
 
 import random
 import cli
 import core
 
-# Lists with items that have already been used, so that they will not repeat
+# Dictionary with operating modes
+modes_dict = {
+    1: 'plus / minus',
+    2: 'multiply / divide',
+    3: 'everything'
+}
+
+# Lists where already used values are placed so that they are not repeated
 numbers_log = []
 operations_log = []
+
+# Dictionary with math operations in German
+german_operations_dict = {
+    '+': 'plus',
+    '-': 'minus',
+    '*': 'multiplizieren mit',
+    '/': 'geteilt durch'
+}
+
+# Get list with operations from previous dictionary's keys
+operations_list = [k for k in german_operations_dict.keys()]
 
 
 def random_multipliers():
@@ -25,25 +49,6 @@ def get_pair():
     if not multipliers_list:
         multipliers_list.extend(random_multipliers())
     return multipliers_list.pop()
-
-
-# Dictionary with math operations in German
-german_operations_dict = {
-    '+': 'plus',
-    '-': 'minus',
-    '*': 'multiplizieren mit',
-    '/': 'geteilt durch'
-}
-
-# Get list with operations from previous dictionary's keys
-operations_list = [k for k in german_operations_dict.keys()]
-
-# Dictionary with operating modes
-modes_dict = {
-    1: 'plus / minus',
-    2: 'multiply / divide',
-    3: 'everything'
-}
 
 
 # Prepare data for writing math examples
