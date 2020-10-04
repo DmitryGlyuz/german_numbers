@@ -20,6 +20,7 @@ modes_dict = {
 # Lists where already used values are placed so that they are not repeated
 numbers_log = []
 operations_log = []
+multipliers_log = []
 
 # Dictionary with math operations in German
 german_operations_dict = {
@@ -32,41 +33,29 @@ german_operations_dict = {
 # Get list with operations from previous dictionary's keys
 operations_list = [k for k in german_operations_dict.keys()]
 
-
-def random_multipliers():
-    outgoing_list = []
-    for m1 in range(2, 10):
-        for m2 in range(m1, 10):
-            outgoing_list.append((m1, m2))
-    random.shuffle(outgoing_list)
-    return outgoing_list
+# Creating a list with pairs of multipliers to use them in random order
+multipliers_list = []
+for m1 in range(2, 10):
+    for m2 in range(m1, 10):
+        multipliers_list.append((m1, m2))
 
 
-multipliers_list = random_multipliers()
-
-
-def get_pair():
-    if not multipliers_list:
-        multipliers_list.extend(random_multipliers())
-    return multipliers_list.pop()
-
-
-# Prepare data for writing math examples
+# Returns four elements of a random example: the first number, the operation, the second number, and the result
 def random_example(mode):
-    # Alternate operations (for first two modes)
+    # Returns one of the operations in alternating order
     def alternate(operations):
         return core.unique_item(operations, operations_log)
 
-    # Selection type of math operation
+    # Selecting the type of mathematical operation
+    # Take a slice from the list of operations or the entire list
     if mode == 'plus / minus':
         operation = alternate(operations_list[:2])
-    else:
-        if mode == 'multiply / divide':
-            operation = alternate(operations_list[2:])
-        elif mode == 'everything':
-            operation = alternate(operations_list)
+    elif mode == 'multiply / divide':
+        operation = alternate(operations_list[2:])
+    elif mode == 'everything':
+        operation = alternate(operations_list)
 
-    # Generate random numbers and result
+    # Generating two random numbers and calculating the result of an operation with them
     if operation == '+':
         x = core.unique_randint(1, 99, numbers_log)
         y = core.unique_randint(1, 99, numbers_log)
@@ -77,7 +66,7 @@ def random_example(mode):
         z = x - y
     else:
         # Take one random pair from generated list
-        pair = get_pair()
+        pair = core.unique_item(multipliers_list, multipliers_log)
 
         # Random order of multipliers
         (x, y) = pair if random.getrandbits(1) == 0 else (pair[1], pair[0])
