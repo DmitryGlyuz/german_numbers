@@ -85,14 +85,26 @@ def german(x, operation, y, result):
     return f'{german_x} {german_operation} {german_y} gleich {german_result}'
 
 
-def get_data(count, mode):
+# Returns two string values with numeric(optionally) lists:
+# output_examples random examples
+# output_german - These examples written in German
+def get_data(count, mode, numeric=True):
+    # Simplified version of convert_list function
     def examples_to(something):
         return core.convert_list(raw_examples, something)
 
+    # Create a list with elements of random example
     raw_examples = core.raw_list(random_example, count, mode)
+
+    # Convert raw elements to string values with examples
     examples = examples_to(strings)
+
+    # And a list with the same examples written in German
     german_examples = examples_to(german)
-    output_examples = core.get_lines(examples)
+
+    # Make string value with examples
+    output_examples = core.get_lines(examples, numeric)
+    # Make string value with german_examples
     output_german = core.get_lines(german_examples)
     return output_examples, output_german
 
@@ -102,10 +114,17 @@ if __name__ == '__main__':
     print('What operations do you need to output examples with?')
     for (k, v) in modes_dict.items():
         print(f'   {k} - {v}')
+
     # Input mode
     selected_mode = modes_dict[cli.input_int('\nSelect mode', 1, 3)]
+
+    # Input required number of examples
     number_of_examples = cli.number_of_points('examples', 1, 100, True)
+
+    # Get two string values with lists
     lines_with_examples, lines_with_german = get_data(number_of_examples, selected_mode)
+
+    # Print these lists
     print(f'\nExamples:\n'
           f'{lines_with_examples}\n'
           f'German words:\n'

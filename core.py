@@ -167,10 +167,10 @@ def get_lines(incoming_list, numeric=True):
 
 # Returns a list of the required length, filling it with the outputs of the specified functions.
 # Returned items require further processing
-def raw_list(get_something, count, *args):
+def raw_list(incoming_function, count, *args):
     outgoing_list = []
     for i in range(count):
-        outgoing_list.append(get_something(*args))
+        outgoing_list.append(incoming_function(*args))
     return outgoing_list
 
 
