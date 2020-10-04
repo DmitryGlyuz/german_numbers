@@ -1,11 +1,11 @@
 <b>A short story of this project</b>
 
 I started to learn Pyton on my own almost in the same time with German.
-My friend and I decided to work together, call each other on video, check each other out and come up with small tasks. To better remember numbers, we gave each other simple examples of addition and subtraction with numbers up to 100We asked and answered in German, but quickly found that while one answered, the other might forget what he/she was asking. Or one might have made a mistake either in the calculations or in the translation, and the other might not have noticed or made a mistake too.I came up with a solution — I wrote a script that generated a list of examples with answers — so we began to stumble much less, and this practice itself turned out to be very useful and effective. I can recommend it to anyone who is learning new languages.
+My friend and I decided to work together, call each other on video, check each other out and come up with small tasks. To better remember numbers, we gave each other simple examples of addition and subtraction with numbers up to 100. We asked and answered in German, but found that while one answered, the other might forget what he/she asked. Or one might have made a mistake either in the calculations or in the translation, and the other might not have noticed that or made a mistake too. I came up with a solution — I wrote a script that generated a list of examples with answers — so we began to stumble much less, and this practice itself turned out to be very useful and effective. I can recommend it to anyone who is learning new languages.
 
-<b>Что я добавил позднее:</b>
-•	eneration of multiplication and division examples
-- a function that converts positive natural numbers to string values with the same number written in German words
+<b>What I added later:</b>
+•	generation of multiplication and division examples
+•	a function that converts positive natural numbers to string values with the same number written in German words
 •	using this function — output examples both in numerical form and in German words
 •	one more script that generates dates — to study them in the same form. This script has a function in ordinal numbers, but only up to 31
 •	more intelligent results: the likelihood of repeated numbers and dates kept to a minimum. The output of mathematical operations and centuries is also balanced
