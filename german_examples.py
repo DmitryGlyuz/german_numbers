@@ -80,10 +80,8 @@ def strings(x, operation, y, result):
 
 # Returns a string value with an example written in German words
 def german(x, operation, y, result):
-    german_x = core.int_to_german(x)
+    german_x, german_y, german_result = core.int_to_german(x, y, result)
     german_operation = german_operations_dict[operation]
-    german_y = core.int_to_german(y)
-    german_result = core.int_to_german(result)
     return f'{german_x} {german_operation} {german_y} gleich {german_result}'
 
 
@@ -99,6 +97,7 @@ def get_data(count, mode):
     return output_examples, output_german
 
 
+# Command line interface
 if __name__ == '__main__':
     print('What operations do you need to output examples with?')
     for (k, v) in modes_dict.items():
