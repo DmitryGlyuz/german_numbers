@@ -14,6 +14,17 @@ import core
 
 
 class Date:
+    # This dictionary contains the number of days in each mouth and names of months in English, German and Russian
+    months_dict = {
+        'days': [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+        'english': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+                    'November', 'December'],
+        'german': ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
+                   'November', 'Dezember'],
+        'russian': ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
+                    'ноября', 'декабря']
+    }
+
     def __init__(self, day, month, year):
         self.day = day
         self.month = month
@@ -28,13 +39,44 @@ class Date:
         return f'{self.day}.{self.month_string}.{self.year}'
 
     def russian(self):
-        return f'{self.day} {months_dict["russian"][self.month - 1]} {self.year} г.'
+        return f'{self.day} {self.months_dict["russian"][self.month - 1]} {self.year} г.'
 
     def american(self):
-        return f'{months_dict["english"][self.month - 1]} {self.day}, {self.year}'
+        return f'{self.months_dict["english"][self.month - 1]} {self.day}, {self.year}'
 
-    def all_formats(self):
-        return f'{self.__str__()} / {self.american()}\n{self.russian()}'
+    def short_german(self):
+        return f'{self.day}. {self.months_dict["german"][self.month - 1]} {self.year}'
+
+    def german(self):
+        # Convert day to German ordinal
+        day_german = int_to_ordinal(self.day)
+
+        # There are two ways how to write years in German. It depends on century
+        if self.year > 1999:
+            year_german = core.int_to_german(self.year)
+        else:
+            year_first_part = int(str(self.year)[:2])
+            year_second_part = int(str(self.year)[2:])
+            year_german = core.int_to_german(year_first_part) + 'hundert' + core.int_to_german(year_second_part)
+        return f'{day_german} {self.months_dict["german"][self.month - 1]} {year_german}'
+
+    def in_format(self, short=True, us=True, ru=True, short_de=True, de=True):
+        def opt_out(mode, val, tab=False):
+            return f'{"   " if tab else ""}{val if mode else ""}'
+
+        def new_line(mode):
+            return "\n" if mode else ""
+
+        return f'{opt_out(short, self.__str__())}' \
+               f'{opt_out((short and us), " / ")}' \
+               f'{opt_out(us,self.american())}' \
+               f'{new_line((short or us))}' \
+               f'{opt_out(ru, self.russian(), tab=short)}' \
+               f'{new_line((ru and short_de))}' \
+               f'{opt_out(short_de, self.short_german(), tab=short)}' \
+               f'{new_line((short_de and de))}' \
+               f'{opt_out(de, self.german(), tab=short)}\n' \
+
 
 
 # Dictionary with ordinal numbers in German
@@ -46,17 +88,6 @@ ord_numbers_dict = {
     8: 'achte',
 
 }
-
-# This dictionary contains the number of days in each mouth and names of months in English, German and Russian
-months_dict = {
-    'days': [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-    'english': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-                'November', 'December'],
-    'german': ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
-               'November', 'Dezember'],
-    'russian': ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
-                'ноября', 'декабря']
-    }
 
 
 # Convert natural integer (from 1 to 31) to German ordinal number and return with a prefix 'der'
@@ -93,7 +124,7 @@ def random_date():
     month = core.unique_randint(1, 12, months_log)
 
     # Generate random day. Take max value from months_dict
-    day = core.unique_randint(1, months_dict['days'][month - 1], days_log)
+    day = core.unique_randint(1, Date.months_dict['days'][month - 1], days_log)
 
     # Choose century avoiding repeats and define range of years
     century = core.unique_randint(19, 21, centuries_log)
@@ -105,59 +136,25 @@ def random_date():
 
 
 # Returns a string value with a date in the format DD.MM.YYYY
-def dd_mm_yyyy(day, month, year):
-    if month < 10:
-        month_string = '0' + str(month)
-    else:
-        month_string = str(month)
-    return f'{day}.{month_string}.{year}'
-
-
 # Returns a string value with a date in Russian format
-def russian(day, month, year):
-    return f'{day} {months_dict["russian"][month - 1]} {year} г.'
-
-
 # Returns a string value with a date in US format
-def american(day, month, year):
-    return f'{months_dict["english"][month - 1]} {day}, {year}'
-
-
 # Returns a string value with a date in German format
-def short_german(day, month, year):
-    return f'{day}. {months_dict["german"][month - 1]} {year}'
-
-
 # Returns a string value with a date written by German words
-def german(day, month, year):
-    # Convert day to German ordinal
-    day_german = int_to_ordinal(day)
-
-    # There are two ways how to write years in German. It depends on century
-    if year > 1999:
-        year_german = core.int_to_german(year)
-    else:
-        year_first_part = int(str(year)[:2])
-        year_second_part = int(str(year)[2:])
-        year_german = core.int_to_german(year_first_part) + 'hundert' + core.int_to_german(year_second_part)
-    return f'{day_german} {months_dict["german"][month - 1]} {year_german}'
 
 
 # Returns string value with random dates written in few formats described at the beginning of the file
-def get_data(count):
+def get_data(count, **kwargs):
     dates = []
     for i in range(count):
-        dates.append(random_date().all_formats())
+        dates.append(random_date().in_format(**kwargs))
     return core.get_lines(dates)
 
 
 # Command line interface
 if __name__ == '__main__':
     # Input required number of examples
-    number_of_dates = cli.number_of_points('dates', 1, 100)
+    # number_of_dates = cli.number_of_points('dates', 1, 100)
     # Print these days
-    print(get_data(number_of_dates))
-    # a = Date(28, 5, 1990)
-    # print(a)
-    # print(a.russian())
-    # print(a.american())
+    # print(get_data(number_of_dates))
+    print(get_data(5))
+
