@@ -12,6 +12,31 @@
 import cli
 import core
 
+
+class Date:
+    def __init__(self, day, month, year):
+        self.day = day
+        self.month = month
+        self.year = year
+        pass
+
+    def __str__(self):
+        if self.month < 10:
+            self.month_string = '0' + str(self.month)
+        else:
+            self.month_string = str(self.month)
+        return f'{self.day}.{self.month_string}.{self.year}'
+
+    def russian(self):
+        return f'{self.day} {months_dict["russian"][self.month - 1]} {self.year} г.'
+
+    def american(self):
+        return f'{months_dict["english"][self.month - 1]} {self.day}, {self.year}'
+
+    def all_formats(self):
+        return f'{self.__str__()} / {self.american()}\n{self.russian()}'
+
+
 # Dictionary with ordinal numbers in German
 ord_numbers_dict = {
     1: 'erste',
@@ -76,7 +101,7 @@ def random_date():
 
     # Generate random year
     year = core.unique_randint(min_year, max_year, years_log)
-    return day, month, year
+    return Date(day, month, year)
 
 
 # Returns a string value with a date in the format DD.MM.YYYY
@@ -119,42 +144,11 @@ def german(day, month, year):
 
 
 # Returns string value with random dates written in few formats described at the beginning of the file
-def get_data(count, short=True, us=True, ru=True, short_de=True, de=True):
-    # Create a list with elements of random dates
-    raw_dates = core.raw_list(random_date, count)
-
-    # Simplified version of convert_list function
-    def dates_to(something):
-        return core.convert_list(raw_dates, something)
-
-    # Create lists with dates in different formats
-    short_dates = dates_to(dd_mm_yyyy)
-    russian_dates = dates_to(russian)
-    american_dates = dates_to(american)
-    short_german_dates = dates_to(short_german)
-    german_dates = dates_to(german)
-
-    # A list with string values containing each date represented in the required formats
-    output_list = []
-
-    # Create string variables that contain either the date in the required format,
-    # or nothing if some format is not needed
-    def fill_var(mode, var_val):
-        return var_val if mode is True else '\n'
-
-    slash = ' / ' if us is True else ''
+def get_data(count):
+    dates = []
     for i in range(count):
-        short_date = fill_var(short, f'{short_dates[i]}{slash}')
-        american_date = fill_var(us, f'{american_dates[i]}\n')
-        russian_date = fill_var(ru, f'   {russian_dates[i]}\n')
-        header_german = f'   German:\n' if short_de is True or de is True else ''
-        short_german_date = fill_var(short_de, f'   {short_german_dates[i]}\n')
-        german_date = fill_var(de, f'   {german_dates[i]}\n')
-
-        # Add the received string value to the outgoing list
-        output_list.append(f'{short_date}{american_date}{russian_date}{header_german}{short_german_date}{german_date}')
-    # Return this list as string value
-    return core.get_lines(output_list)
+        dates.append(random_date().all_formats())
+    return core.get_lines(dates)
 
 
 # Command line interface
@@ -163,3 +157,7 @@ if __name__ == '__main__':
     number_of_dates = cli.number_of_points('dates', 1, 100)
     # Print these days
     print(get_data(number_of_dates))
+    # a = Date(28, 5, 1990)
+    # print(a)
+    # print(a.russian())
+    # print(a.american())
