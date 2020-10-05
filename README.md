@@ -1,4 +1,5 @@
 <b>ENGLISH</b>
+
 (Russian is below)
 
 <b>A short story of this project</b>
@@ -36,6 +37,7 @@ Depending on the settings in your operating system, the interpreter may be calle
 
 
 <b> RUSSIAN / РУССКИЙ </b>
+
 <b>Небольшая история этого проекта</b>
 
 Я начал самостоятельно изучать Python почти одновременно с немецким.
