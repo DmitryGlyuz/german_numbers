@@ -6,7 +6,7 @@ print('Enter any integer number to get it in German.\nEnter any non-integer to e
 while True:
     try:
         n = int(input('\nNumber: '))
-        print(f'German: {core.int_to_german(n)}')
+        print(f'German: {core.GermanNumeral(n)}')
     except ValueError:
         print('Tschüss!')
         exit()

@@ -53,11 +53,11 @@ class Date:
 
         # There are two ways how to write years in German. It depends on century
         if self.year > 1999:
-            year_german = core.int_to_german(self.year)
+            year_german = core.GermanNumeral(self.year)
         else:
             year_first_part = int(str(self.year)[:2])
             year_second_part = int(str(self.year)[2:])
-            year_german = core.int_to_german(year_first_part) + 'hundert' + core.int_to_german(year_second_part)
+            year_german = core.GermanNumeral(year_first_part) + 'hundert' + core.GermanNumeral(year_second_part)
         return f'{day_german} {self.months_dict["german"][self.month - 1]} {year_german}'
 
     def in_format(self, short=True, us=True, ru=True, short_de=True, de=True):
@@ -96,9 +96,9 @@ def int_to_ordinal(number):
         if number in ord_numbers_dict.keys():
             ord_number = ord_numbers_dict[number]
         else:
-            ord_number = core.int_to_german(number) + 'te'
+            ord_number = core.GermanNumeral(number) + 'te'
     elif 20 <= number <= 31:
-        ord_number = core.int_to_german(number) + 'ste'
+        ord_number = core.GermanNumeral(number) + 'ste'
     else:
         raise ValueError
     return 'der ' + ord_number
@@ -153,8 +153,8 @@ def get_data(count, **kwargs):
 # Command line interface
 if __name__ == '__main__':
     # Input required number of examples
-    # number_of_dates = cli.number_of_points('dates', 1, 100)
+    number_of_dates = cli.number_of_points('dates', 1, 100)
     # Print these days
-    # print(get_data(number_of_dates))
+    print(get_data(number_of_dates))
     print(get_data(5))
 

@@ -80,9 +80,8 @@ def strings(x, operation, y, result):
 
 # Returns a string value with an example written in German words
 def german(x, operation, y, result):
-    german_x, german_y, german_result = core.int_to_german(x, y, result)
-    german_operation = german_operations_dict[operation]
-    return f'{german_x} {german_operation} {german_y} gleich {german_result}'
+    return f'{core.GermanNumeral(x)} {german_operations_dict[operation]} ' \
+           f'{core.GermanNumeral(y)} gleich {core.GermanNumeral(result)}'
 
 
 # Returns two string values with numeric(optionally) lists:
