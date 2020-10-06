@@ -2,6 +2,7 @@
 
 import random
 
+# Dictionary with numbers in German
 numbers_dict = {
         0: 'null',
         1: 'eins',
@@ -34,10 +35,14 @@ numbers_dict = {
     }
 
 
+# The main class, objects when created accept integers, convert and output as string values with numbers in German
 class GermanNumeral:
-    class ClassOfNumber(int):
+    # Objects with number classes (every three digits) contain part of the logic for translating the numeral into German
+    class NumberClass(int):
         def __init__(self, value):
             self.value = value
+
+            # Variables for each digit in class
             self.units = self.value % 10
             self.tens = self.value % 100 - self.units
             self.hundreds = self.value % 1000 - self.tens - self.units
@@ -48,80 +53,97 @@ class GermanNumeral:
         def __eq__(self, other):
             return True if self.value == other else False
 
+        # this method converts the number class to German with separate parameters for thousands and large numbers
         def german(self, large=False, thousand=False):
+            # Start the conversion and step by step add the result to the variable
             result = ''
+
             # Hundreds
             if self.hundreds:
-                hundreds_digit = self.hundreds // 100
-                if 1 < hundreds_digit < 10:
-                    result = numbers_dict[hundreds_digit] + result
+                # If there is only one hundred in the class, write 'hundert' without digit before
+                if 100 < self.hundreds < 1000:
+                    result = numbers_dict[self.hundreds // 100] + result
                 result += 'hundert'
 
             # Tens & Units
             if self.tens:
+                # the simplest case is if the number is in the dictionary
                 if self.tens + self.units in numbers_dict.keys():
                     result += numbers_dict[self.tens + self.units]
                 else:
+                    # write down the units first, and then the tens
                     result += numbers_dict[self.units] + 'und' + numbers_dict[self.tens]
             else:
                 if self.units > 0:
+                    # Take into various cases of writing units with large numbers
                     if (large or thousand) and self.units == 1:
                         last_digit = 'eine' if large and self.value == 1 else 'ein'
                     else:
+                        # Or take units from our dictionary
                         last_digit = numbers_dict[self.units]
                     result += last_digit
             return result
 
     def __init__(self, number):
+        # We work only with this range
         if number > 999999999999999 or number < 0:
             raise ValueError
         self.number = number
+
+        # Divide the number into classes and add them to the list
         self.classes = []
         self.n = self.number
         while self.n > 0:
             self.remainder = self.n % 1000
-            self.classes.append(self.ClassOfNumber(self.remainder))
+            self.classes.append(self.NumberClass(self.remainder))
             self.n //= 1000
 
+    # Main logic for converting to German numerals, also using logic from NumberClass
     def __str__(self):
+        # Large numbers
+        # Dictionary with values. Nu,bers in keys are positions in classes_list
+        # Here are two elements in pairs: for singular and plural
         large_numbers_dict = {
             4: ('Billion', 'Billionen'),
             3: ('Milliarde', 'Milliarden'),
             2: ('Million', 'Millionen')
         }
+        # Start collecting data to this variable
         result = ''
+
         for key in large_numbers_dict.keys():
             large_value = ''
+            # Check whether there is a class of trillions, billions, millions
             if key > (len(self.classes) - 1):
                 continue
             else:
                 if self.classes[key]:
+                    # Singular or plural
                     large_value = large_numbers_dict[key][0] if self.classes[key].units == 1 else large_numbers_dict[key][1]
                 result += f'{self.classes[key].german(large=True)} {large_value} '
 
+        # Thousands
         if self.number > 999:
             if self.classes[1]:
+                # Don't write 'ein' if we have 1000
                 if self.classes[1] > 1:
                     result += self.classes[1].german(thousand=True)
                 elif self.classes[0]:
                     result += 'ein'
                 result += 'tausend'
 
+            # Don't write 'ein' if we have 100, but write it in cases like 1100 etc
             if self.classes[0].hundreds == 100:
                 result += 'ein'
 
+        # First class of number
         if self.classes[0] != 0:
             result += self.classes[0].german()
         return result
 
 
-
-
-
 # Main function which converts integers to strings with these numbers in German
 def int_to_german(*args):
-    # Dictionary with numbers in German
-
     results_list = []
     for number in args:
         # We work only with this range
@@ -273,15 +295,15 @@ def convert_list(incoming_list, converting_action):
 
 
 if __name__ == '__main__':
-    for i in range(1, 100000000):
-        word1 = str(GermanNumeral(i))
-        word2 = int_to_german(i)
-        if word1 != word2:
-            print(i)
-            print(GermanNumeral(i))
-            print(int_to_german(i))
-    print('done')
-    # while True:
-    #     val = int(input('Value: '))
-    #     print(GermanNumeral(val))
-    #     print(int_to_german(val))
+    # for i in range(1, 100000000):
+    #     word1 = str(GermanNumeral(i))
+    #     word2 = int_to_german(i)
+    #     if word1 != word2:
+    #         print(i)
+    #         print(GermanNumeral(i))
+    #         print(int_to_german(i))
+    # print('done')
+    while True:
+        val = int(input('Value: '))
+        print(GermanNumeral(val))
+        print(int_to_german(val))
