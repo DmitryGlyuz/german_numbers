@@ -17,11 +17,6 @@ modes_dict = {
     3: 'everything'
 }
 
-# Lists where already used values are placed so that they are not repeated
-numbers_log = []
-operations_log = []
-multipliers_log = []
-
 # Dictionary with math operations in German
 german_operations_dict = {
     '+': 'plus',
@@ -44,7 +39,7 @@ for m1 in range(2, 10):
 def random_example(mode):
     # Returns one of the operations in alternating order
     def alternate(operations):
-        return core.unique_item(operations, operations_log)
+        return core.unique_item(operations, 'operations')
 
     # Selecting the type of mathematical operation
     # Take a slice from the list of operations or the entire list
@@ -57,11 +52,11 @@ def random_example(mode):
 
     # Generating two random numbers and calculating the result of an operation with them
     if operation == '+' or operation == '-':
-        (x, y) = [core.unique_randint(1, 99, numbers_log) for _ in range(2)]
+        (x, y) = [core.unique_randint(1, 99, 'numbers') for _ in range(2)]
         z = x + y
     else:
         # Take one random pair from generated list
-        pair = core.unique_item(multipliers_list, multipliers_log)
+        pair = core.unique_item(multipliers_list, 'multipliers')
 
         # Random order of multipliers
         (x, y) = pair if random.getrandbits(1) == 0 else (pair[1], pair[0])

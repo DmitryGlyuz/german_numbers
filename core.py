@@ -141,7 +141,7 @@ class GermanNumeral(str):
             result += self.classes[0].german()
         return str(result)
 
-
+# Dictionary for already used random values
 log = {}
 
 
@@ -159,7 +159,6 @@ def unique_randint(min_val, max_val, log_key):
             available_values.append(i)
     value = random.choice(available_values)
     log[log_key].append(value)
-    print(log)
     return value
 
 

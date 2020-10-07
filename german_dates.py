@@ -64,7 +64,10 @@ class Date:
             if self.value > 1999:
                 return core.GermanNumeral(self.value)
             else:
-                return f'{core.GermanNumeral(self.value // 100)}hundert{core.GermanNumeral(self.value % 100)}'
+                first_part = self.value // 100
+                second_part = self.value % 100
+                return f'{core.GermanNumeral(first_part)}hundert' \
+                       f'{core.GermanNumeral(second_part) if second_part > 0 else ""}'
 
     def __init__(self, day, month, year):
         self.day = self.Day(day)
@@ -122,13 +125,6 @@ class Century(int):
         self.min, self.max = self.centuries_dict[value]
 
 
-# Lists where already used values are placed so that they are not repeated
-# days_log = []
-# months_log = []
-# years_log = []
-# centuries_log = []
-
-
 # Returns Date object with random values
 def random_date():
     # Choose number with random month
@@ -156,8 +152,7 @@ def get_data(count, **kwargs):
 # Command line interface
 if __name__ == '__main__':
     # Input required number of examples
-    # number_of_dates = cli.number_of_points('dates', 1, 100)
+    number_of_dates = cli.number_of_points('dates', 1, 100)
     # Print these days
-    # print(get_data(number_of_dates))
-    print(get_data(5))
+    print(get_data(number_of_dates))
 
