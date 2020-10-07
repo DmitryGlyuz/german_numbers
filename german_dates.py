@@ -10,35 +10,26 @@
 import cli
 import core
 
-# Dictionary with ordinal numbers in German
-ord_numbers_dict = {
-    1: 'erste',
-    2: 'zweite',
-    3: 'dritte',
-    7: 'siebte',
-    8: 'achte',
-}
-
-month_lists = [
-    [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-    ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-                    'November', 'December'],
-    ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
-                   'November', 'Dezember'],
-    ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
-                    'ноября', 'декабря']
-]
-
 
 class Date:
     class Day(int):
+        # Dictionary with ordinal numbers in German
+        ord_numbers_dict = {
+            1: 'erste',
+            2: 'zweite',
+            3: 'dritte',
+            7: 'siebte',
+            8: 'achte',
+        }
+
         def __init__(self, value):
+            super().__init__()
             self.value = value
 
         def german(self):
             if 1 <= self.value <= 19:
-                if self.value in ord_numbers_dict.keys():
-                    ord_number = ord_numbers_dict[self.value]
+                if self.value in self.ord_numbers_dict.keys():
+                    ord_number = self.ord_numbers_dict[self.value]
                 else:
                     ord_number = f'{core.GermanNumeral(self.value)}te'
             elif 20 <= self.value <= 31:
@@ -48,16 +39,28 @@ class Date:
             return 'der ' + ord_number
 
     class Month(int):
+        month_lists = [
+            [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+            ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+             'November', 'December'],
+            ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
+             'November', 'Dezember'],
+            ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
+             'ноября', 'декабря']
+        ]
+
         def __init__(self, value):
+            super().__init__()
             self.value = value
             self.position = value - 1
-            self.days_number, self.english, self.german, self.russian = [lst[self.position] for lst in month_lists]
+            self.days_number, self.english, self.german, self.russian = [lst[self.position] for lst in self.month_lists]
 
         def __str__(self):
             return f'0{self.value}' if self.value < 10 else str(self.value)
 
     class Year(int):
         def __init__(self, value):
+            super().__init__()
             self.value = value
 
         def german(self):
@@ -69,10 +72,30 @@ class Date:
                 return f'{core.GermanNumeral(first_part)}hundert' \
                        f'{core.GermanNumeral(second_part) if second_part > 0 else ""}'
 
-    def __init__(self, day, month, year):
+    class Century(int):
+        # Dictionary with for centuries, and the years included in them
+        centuries_dict = {
+            19: (1800, 1899),
+            20: (1900, 1990),
+            21: (2000, 2030)
+        }
+
+        def __init__(self, value):
+            super().__init__()
+            self.value = value
+            self.min, self.max = self.centuries_dict[value]
+
+    def __init__(self, day=1, month=1, year=2000, century=21, random=False):
         self.day = self.Day(day)
-        self.month = self.Month(month)
-        self.year = self.Year(year)
+        if random:
+            self.month = self.Month(core.unique_randint(1, 12, 'months'))
+            self.day = self.Day(core.unique_randint(1, self.month.days_number, 'days'))
+            self.century = self.Century(core.unique_randint(19, 21, 'centuries'))
+            self.year = self.Year(core.unique_randint(self.century.min, self.century.max, 'years'))
+        else:
+            self.month = self.Month(month)
+            self.year = self.Year(year)
+            self.century = self.Century(century)
 
     # Returns a string value with a date in the format DD.MM.YYYY
     def __str__(self):
@@ -112,47 +135,11 @@ class Date:
                f'{optional_out(de, self.german(), tab=short)}\n'
 
 
-class Century(int):
-    # Dictionary with for centuries, and the years included in them
-    centuries_dict = {
-        19: (1800, 1899),
-        20: (1900, 1990),
-        21: (2000, 2030)
-    }
-
-    def __init__(self, value):
-        self.value = value
-        self.min, self.max = self.centuries_dict[value]
-
-
-# Returns Date object with random values
-def random_date():
-    # Choose number with random month
-    month = core.unique_randint(1, 12, 'months')
-
-    # Generate random day. Take max value from months_dict
-    day = core.unique_randint(1, Date.Month(month).days_number, 'days')
-
-    # Choose century avoiding repeats and define range of years
-    century = Century(core.unique_randint(19, 21, 'centuries'))
-
-    # Generate random year
-    year = core.unique_randint(century.min, century.max, 'years')
-    return Date(day, month, year)
-
-
 # Returns string value with random dates written in few formats described at the beginning of the file
 def get_data(count, **kwargs):
-    dates = []
-    for i in range(count):
-        dates.append(random_date().in_format(**kwargs))
-    return core.get_lines(dates)
+    return core.get_lines([Date(random=True).in_format(**kwargs) for _ in range(count)])
 
 
 # Command line interface
 if __name__ == '__main__':
-    # Input required number of examples
-    number_of_dates = cli.number_of_points('dates', 1, 100)
-    # Print these days
-    print(get_data(number_of_dates))
-
+    print(get_data(cli.number_of_points('dates', 1, 100)))
