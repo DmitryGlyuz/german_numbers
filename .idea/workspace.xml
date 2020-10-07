@@ -25,7 +25,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e40d5f91-7d86-4e28-93bb-d60dea685998" name="Default Changelist" comment="edit german_dates.py &amp; core.py" />
+    <list default="true" id="e40d5f91-7d86-4e28-93bb-d60dea685998" name="Default Changelist" comment="edit german_dates.py &amp; core.py">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/german_dates.py" beforeDir="false" afterPath="$PROJECT_DIR$/german_dates.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -384,7 +387,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602078461776</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="edit german_dates.py &amp; core.py">
+      <created>1602079250948</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1602079250948</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -457,22 +467,22 @@
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
     <state x="541" y="181" key="Git.Interactive.Rebase.Dialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601846110376" />
-    <state width="2151" height="1139" key="GridCell.Tab.0.bottom" timestamp="1602078699491">
+    <state width="2151" height="1139" key="GridCell.Tab.0.bottom" timestamp="1602079611020">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
-    <state width="2151" height="1139" key="GridCell.Tab.0.bottom/0.0.3840.2066@0.0.3840.2066" timestamp="1602078699491" />
-    <state width="2151" height="1139" key="GridCell.Tab.0.center" timestamp="1602078699491">
+    <state width="2151" height="1139" key="GridCell.Tab.0.bottom/0.0.3840.2066@0.0.3840.2066" timestamp="1602079611020" />
+    <state width="2151" height="1139" key="GridCell.Tab.0.center" timestamp="1602079611019">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
-    <state width="2151" height="1139" key="GridCell.Tab.0.center/0.0.3840.2066@0.0.3840.2066" timestamp="1602078699491" />
-    <state width="2151" height="1139" key="GridCell.Tab.0.left" timestamp="1602078699490">
+    <state width="2151" height="1139" key="GridCell.Tab.0.center/0.0.3840.2066@0.0.3840.2066" timestamp="1602079611019" />
+    <state width="2151" height="1139" key="GridCell.Tab.0.left" timestamp="1602079611019">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
-    <state width="2151" height="1139" key="GridCell.Tab.0.left/0.0.3840.2066@0.0.3840.2066" timestamp="1602078699490" />
-    <state width="2151" height="1139" key="GridCell.Tab.0.right" timestamp="1602078699491">
+    <state width="2151" height="1139" key="GridCell.Tab.0.left/0.0.3840.2066@0.0.3840.2066" timestamp="1602079611019" />
+    <state width="2151" height="1139" key="GridCell.Tab.0.right" timestamp="1602079611020">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
-    <state width="2151" height="1139" key="GridCell.Tab.0.right/0.0.3840.2066@0.0.3840.2066" timestamp="1602078699491" />
+    <state width="2151" height="1139" key="GridCell.Tab.0.right/0.0.3840.2066@0.0.3840.2066" timestamp="1602079611020" />
     <state x="380" y="176" key="MergeDialog" timestamp="1601151392488">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>

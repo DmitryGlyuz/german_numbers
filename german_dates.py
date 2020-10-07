@@ -114,7 +114,9 @@ def german(day, month, year):
     else:
         year_first_part = int(str(year)[:2])
         year_second_part = int(str(year)[2:])
-        year_german = core.int_to_german(year_first_part) + 'hundert' + core.int_to_german(year_second_part)
+        year_german = core.int_to_german(year_first_part) + 'hundert'
+        if year_second_part:
+            year_german += core.int_to_german(year_second_part)
     return f'{day_german} {months_dict["german"][month - 1]} {year_german}'
 
 
