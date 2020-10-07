@@ -12,6 +12,7 @@ import core
 
 
 class Date:
+    """' Contains the date, its components, and all the logic for output in the required form """
     class Day(int):
         # Dictionary with ordinal numbers in German
         ord_numbers_dict = {
@@ -124,8 +125,7 @@ class Date:
         def new_line(mode):
             return "\n" if mode else ""
 
-        return f'{optional_out(short, self.__str__())}' \
-               f'{optional_out((short and us), " / ")}' \
+        return f'{optional_out(short, self.__str__())}{optional_out((short and us), " / ")}' \
                f'{optional_out(us, self.american())}' \
                f'{new_line((short or us))}' \
                f'{optional_out(ru, self.russian(), tab=short)}' \

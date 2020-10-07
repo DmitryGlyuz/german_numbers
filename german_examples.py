@@ -7,6 +7,7 @@
 #              String values with mode names are contained in the modes_dict dictionary
 
 import random
+
 import cli
 import core
 
@@ -17,90 +18,96 @@ modes_dict = {
     3: 'everything'
 }
 
-# Dictionary with math operations in German
-german_operations_dict = {
-    '+': 'plus',
-    '-': 'minus',
-    '*': 'multiplizieren mit',
-    '/': 'geteilt durch'
-}
 
-# Get list with operations from previous dictionary's keys
-operations_list = [k for k in german_operations_dict.keys()]
+class Example:
+    multipliers_list = []
+    for m1 in range(2, 10):
+        for m2 in range(m1, 10):
+            multipliers_list.append((m1, m2))
+
+    class Operation(str):
+        def __init__(self, value):
+            super().__init__()
+            if value not in Operations():
+                raise ValueError
+            self.value = value
+
+        def __str__(self):
+            return str(self.value)
+
+        def german(self):
+            return Operations.operations_dict[self.value]
+
+    def __init__(self, x=1, operation="+", y=1, get_random=False, mode='everything'):
+        if get_random:
+            self.operation = self.Operation(Operations(mode).random())
+            if self.operation in Operations('plus / minus'):
+                (self.x, self.y) = [core.unique_randint(1, 99, 'numbers') for _ in range(2)]
+            else:
+                # Take one random pair from generated list
+                self.x, self.y = core.unique_item(self.multipliers_list, 'multipliers')
+
+                # Random order of multipliers
+                if random.getrandbits(1) == 1:
+                    (self.x, self.y) = (self.y, self.x)
+        else:
+            self.x = x
+            self.y = y
+            self.operation = self.Operation(operation)
+
+        self.z = self.x + self.y if self.operation in ('+', '-') else self.x * self.y
+        if self.operation in ('-', '/'):
+            (self.x, self.z) = (self.z, self.x)
+
+    def __str__(self):
+        return f'{self.x} {self.operation} {self.y} = {self.z}'
+
+    def german(self):
+        return f'{core.GermanNumeral(self.x)} {self.operation.german()} ' \
+               f'{core.GermanNumeral(self.y)} gleich {core.GermanNumeral(self.z)}'
+
+
+class Operations(tuple):
+    # Dictionary with math operations in German
+    operations_dict = {
+        '+': 'plus',
+        '-': 'minus',
+        '*': 'multiplizieren mit',
+        '/': 'geteilt durch'
+    }
+
+    def __init__(self, mode='everything'):
+        super().__init__()
+        # Take a slice from the list of operations or the entire list
+        if mode == 'everything':
+            self.value = tuple(self.operations_dict.keys())
+        if mode == 'plus / minus':
+            self.value = list(self.operations_dict.keys())[:2]
+        if mode == 'multiply / divide':
+            self.value = list(self.operations_dict.keys())[2:]
+
+    # Returns one of the operations in alternating order
+    def random(self):
+        return core.unique_item(self.value, 'operations')
+
+    def __contains__(self, item):
+        return True if item in self.value else False
+
+    def __str__(self):
+        return f'{self.value}'
+
 
 # Creating a list with pairs of multipliers to use them in random order
-multipliers_list = []
-for m1 in range(2, 10):
-    for m2 in range(m1, 10):
-        multipliers_list.append((m1, m2))
-
-
 # Returns four elements of a random example: the first number, the operation, the second number, and the result
-def random_example(mode):
-    # Returns one of the operations in alternating order
-    def alternate(operations):
-        return core.unique_item(operations, 'operations')
-
-    # Selecting the type of mathematical operation
-    # Take a slice from the list of operations or the entire list
-    if mode == 'plus / minus':
-        operation = alternate(operations_list[:2])
-    elif mode == 'multiply / divide':
-        operation = alternate(operations_list[2:])
-    else:
-        operation = alternate(operations_list)
-
-    # Generating two random numbers and calculating the result of an operation with them
-    if operation == '+' or operation == '-':
-        (x, y) = [core.unique_randint(1, 99, 'numbers') for _ in range(2)]
-        z = x + y
-    else:
-        # Take one random pair from generated list
-        pair = core.unique_item(multipliers_list, 'multipliers')
-
-        # Random order of multipliers
-        (x, y) = pair if random.getrandbits(1) == 0 else (pair[1], pair[0])
-        z = x * y
-
-    # Swap x and z if the operation is - or /
-    if operation == '-' or operation == '/':
-        (x, z) = (z, x)
-    return x, operation, y, z
-
-
 # Returns a string value with an example of its parts received as input
-def strings(x, operation, y, result):
-    return f'{x} {operation} {y} = {result}'
-
-
 # Returns a string value with an example written in German words
-def german(x, operation, y, result):
-    return f'{core.GermanNumeral(x)} {german_operations_dict[operation]} ' \
-           f'{core.GermanNumeral(y)} gleich {core.GermanNumeral(result)}'
-
-
 # Returns two string values with numeric(optionally) lists:
-# output_examples random examples
-# output_german - These examples written in German
 def get_data(count, mode, numeric=True):
-    # Simplified version of convert_list function
-    def examples_to(something):
-        return core.convert_list(raw_examples, something)
-
-    # Create a list with elements of random example
-    raw_examples = core.raw_list(random_example, count, mode)
-
-    # Convert raw elements to string values with examples
-    examples = examples_to(strings)
-
-    # And a list with the same examples written in German
-    german_examples = examples_to(german)
-
-    # Make string value with examples
-    output_examples = core.get_lines(examples, numeric)
-    # Make string value with german_examples
-    output_german = core.get_lines(german_examples)
-    return output_examples, output_german
+    # Create a list with random examples
+    examples_list = ([Example(get_random=True, mode=mode) for _ in range(count)])
+    lines_examples = core.get_lines(examples_list, numeric)
+    lines_german = core.get_lines([example.german() for example in examples_list], numeric)
+    return lines_examples, lines_german
 
 
 # Command line interface
@@ -116,10 +123,10 @@ if __name__ == '__main__':
     number_of_examples = cli.number_of_points('examples', 1, 100, True)
 
     # Get two string values with lists
-    lines_with_examples, lines_with_german = get_data(number_of_examples, selected_mode)
+    examples, german_examples = get_data(number_of_examples, selected_mode)
 
     # Print these lists
     print(f'\nExamples:\n'
-          f'{lines_with_examples}\n'
+          f'{examples}\n'
           f'German words:\n'
-          f'{lines_with_german}')
+          f'{german_examples}')

@@ -40,6 +40,7 @@ class GermanNumeral(str):
     # Objects with number classes (every three digits) contain part of the logic for translating the numeral into German
     class NumberClass(int):
         def __init__(self, value):
+            super().__init__()
             self.value = value
 
             # Variables for each digit in class
@@ -86,6 +87,7 @@ class GermanNumeral(str):
 
     def __init__(self, number):
         # We work only with this range
+        super().__init__()
         if number > 999999999999999 or number < 0:
             raise ValueError
         self.number = int(number)
@@ -119,7 +121,10 @@ class GermanNumeral(str):
             else:
                 if self.classes[key]:
                     # Singular or plural
-                    large_value = large_numbers_dict[key][0] if self.classes[key].units == 1 else large_numbers_dict[key][1]
+                    if self.classes[key].units == 1:
+                        large_value = large_numbers_dict[key][0]
+                    else:
+                        large_value = large_numbers_dict[key][1]
                 result += f'{self.classes[key].german(large=True)} {large_value} '
 
         # Thousands
@@ -140,6 +145,7 @@ class GermanNumeral(str):
         if self.classes[0] != 0:
             result += self.classes[0].german()
         return str(result)
+
 
 # Dictionary for already used random values
 log = {}
@@ -163,8 +169,8 @@ def unique_randint(min_val, max_val, log_key):
 
 
 # Returns a random list item using the logic of the previous function
-def unique_item(incoming_list, log):
-    return incoming_list[unique_randint(0, len(incoming_list) - 1, log)]
+def unique_item(incoming_list, log_key):
+    return incoming_list[unique_randint(0, len(incoming_list) - 1, log_key)]
 
 
 # Returns a string with numeric (optionally) list from a variable of type list
@@ -178,20 +184,3 @@ def get_lines(incoming_list, numeric=True):
         else:
             output += f'{element}\n'
     return output
-
-
-# Returns a list of the required length, filling it with the outputs of the specified functions.
-# Returned items require further processing
-def raw_list(incoming_function, count, *args):
-    outgoing_list = []
-    for i in range(count):
-        outgoing_list.append(incoming_function(*args))
-    return outgoing_list
-
-
-# Returns a list where each element of the incoming list is processed by the function specified in the parameters
-def convert_list(incoming_list, converting_action):
-    outgoing_list = []
-    for element in incoming_list:
-        outgoing_list.append(converting_action(*element))
-    return outgoing_list
