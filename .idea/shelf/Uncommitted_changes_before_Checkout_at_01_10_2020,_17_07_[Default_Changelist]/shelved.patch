@@ -1,0 +1,71 @@
+Index: german_examples.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># This script generates simple random math examples written in German\n\nimport random\nimport core\n\n# List of modes\nprint('1 - plus/minus examples\\n'\n      '2 - multiplizieren/geteilt examples\\n'\n      '3 - everything\\n')\nmode = 0\n\n# Input mode\nmode = core.input_int('Select mode: ', 1, 3)\n\noperations_list = ['+', '-', '*', '/']\noperations_log = []\n\n# A list of numbers that have already been used, so that they do not repeat\nnumbers_log = []\n\n# We need this boolean because we have a generator of number pair inside the function which will run several times,\n# but is must be created only onc time\nfirst_run = True\n\n# This is a list where we will put these pairs\nmultipliers_list = []\n\n# Dictionary with math operations in German\ngerman_operations_dict = {\n    '+': 'plus',\n    '-': 'minus',\n    '*': 'multiplizieren mit',\n    '/': 'geteilt durch'\n}\n\n\n# Prepare data for writing math examples\ndef print_examples():\n    # Take boolean from gloval scope. We will turn it off in the end of this function\n    global first_run\n\n    # Alternate operations (for first two modes)\n    def alternate(op1, op2):\n        if not operations_log:\n            return op1\n        else:\n            return op2 if operations_log[-1] == op1 else op1\n\n    # Selection type of math operation\n    if mode == 1:\n        operation = alternate('+', \"-\")\n    else:\n        # If there will be examples for multiplication and division -> generate a list with number's pairs\n        if first_run:\n            for m1 in range(2, 10):\n                for m2 in range(m1, 10):\n                    multipliers_list.append((m1, m2))\n        if mode == 2:\n            operation = alternate('*', '/')\n        elif mode == 3:\n            # If we already have 4 examples, clear log and choose any new random operation, but not last\n            if len(operations_log) == 4:\n                available_operations = operations_list[:]\n                available_operations.remove(operations_log[-1])\n                # And clear log\n                operations_log.clear()\n            else:\n                # Choose any random operation which is not in log\n                available_operations = operations_list[:]\n                for op in operations_log:\n                    available_operations.remove(op)\n            operation = random.choice(available_operations)\n\n    # Add operation to log\n    operation_german = german_operations_dict[operation]\n\n    # Generate random numbers and result\n    if operation == '+':\n        x = core.new_randint(1, 99, numbers_log)\n        y = core.new_randint(1, 99, numbers_log)\n        z = x + y\n    elif operation == '-':\n        x = core.new_randint(2, 99, numbers_log)\n        y = core.new_randint(1, x, numbers_log)\n        z = x - y\n    else:\n        # Take one random pair from generated list\n        pair = random.choice(multipliers_list)\n        # And remove\n        multipliers_list.remove(pair)\n\n        # Random order of multipliers\n        (x, y) = pair if random.getrandbits(1) == 0 else (pair[1], pair[0])\n        z = x * y\n        if operation == '/':\n            (x, z) = (z, x)\n\n    # Strings with example by numbers and words\n    example_numbers = f'{x} {operation} {y} = {z}'\n    example_words = core.int_to_german(x) + ' ' + operation_german + ' ' + core.int_to_german(y) + ' gleich ' + core.int_to_german(z)\n\n    operations_log.append(operation)\n\n    # Turn off this boolean to not repeat generator's running\n    first_run = False\n    # Send these strings to interface script\n    return example_numbers, example_words\n\n\n# Run simple console interface which show random content with user's parameters\ncore.show(print_examples, 'examples', True, 'Deutsche Wörter:')\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- german_examples.py	(revision b6b6c8093c7f88bf390fe6e9452f4226dcb7612b)
++++ german_examples.py	(date 1601561096187)
+@@ -7,7 +7,6 @@
+ print('1 - plus/minus examples\n'
+       '2 - multiplizieren/geteilt examples\n'
+       '3 - everything\n')
+-mode = 0
+ 
+ # Input mode
+ mode = core.input_int('Select mode: ', 1, 3)
+@@ -16,7 +15,9 @@
+ operations_log = []
+ 
+ # A list of numbers that have already been used, so that they do not repeat
++#
+ numbers_log = []
++random_numbers = []
+ 
+ # We need this boolean because we have a generator of number pair inside the function which will run several times,
+ # but is must be created only onc time
+@@ -58,6 +59,7 @@
+         if mode == 2:
+             operation = alternate('*', '/')
+         elif mode == 3:
++            # !!! Использовать unique_rnd
+             # If we already have 4 examples, clear log and choose any new random operation, but not last
+             if len(operations_log) == 4:
+                 available_operations = operations_list[:]
+@@ -76,17 +78,22 @@
+ 
+     # Generate random numbers and result
+     if operation == '+':
+-        x = core.new_randint(1, 99, numbers_log)
+-        y = core.new_randint(1, 99, numbers_log)
++        # x = core.new_randint(1, 99, numbers_log)
++        # y = core.new_randint(1, 99, numbers_log)
++        x = core.unique_rnd(1, 99, random_numbers)
++        y = core.unique_rnd(1, 99, random_numbers)
+         z = x + y
+     elif operation == '-':
+-        x = core.new_randint(2, 99, numbers_log)
+-        y = core.new_randint(1, x, numbers_log)
++        # x = core.new_randint(2, 99, numbers_log)
++        # y = core.new_randint(1, x, numbers_log)
++        x = core.unique_rnd(2, 99, random_numbers)
++        y = core.unique_rnd(1, x, random_numbers)
+         z = x - y
+     else:
+         # Take one random pair from generated list
+         pair = random.choice(multipliers_list)
+         # And remove
++        # !! ИЗМЕНИТЬ НА random.pop
+         multipliers_list.remove(pair)
+ 
+         # Random order of multipliers
+@@ -97,7 +104,7 @@
+ 
+     # Strings with example by numbers and words
+     example_numbers = f'{x} {operation} {y} = {z}'
+-    example_words = core.int_to_german(x) + ' ' + operation_german + ' ' + core.int_to_german(y) + ' gleich ' + core.int_to_german(z)
++    example_words = f'{core.int_to_german(x)} {operation_german} {core.int_to_german(y)} gleich {core.int_to_german(z)}'
+ 
+     operations_log.append(operation)
+ 

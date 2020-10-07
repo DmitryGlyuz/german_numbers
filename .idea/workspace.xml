@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:dev-oop" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e40d5f91-7d86-4e28-93bb-d60dea685998" name="Default Changelist" comment="edit german_dates.py &amp; core.py" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev-oop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="ProjectId" id="1fMwOthL4dPfzxjwkjp9IrehOeF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/core.py" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager" selected="Python.german_dates">
+    <configuration name="german_dates" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/german_dates.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="german_examples" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="german_numbers" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/german_examples.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="german_numbers" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="german_numbers" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/german_numbers.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="german_numbers" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="german_numbers" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.german_dates" />
+        <item itemvalue="Python.test2" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.german_numbers" />
+        <item itemvalue="Python.german_examples" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e40d5f91-7d86-4e28-93bb-d60dea685998" name="Default Changelist" comment="" />
+      <created>1596041240410</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596041240410</updated>
+    </task>
+    <task id="LOCAL-00001" summary="modify new_randint function and rename to unique_randint">
+      <created>1601580643349</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1601580643349</updated>
+    </task>
+    <task id="LOCAL-00002" summary="modify new_randint function and rename to unique_randint">
+      <created>1601581717606</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1601581717606</updated>
+    </task>
+    <task id="LOCAL-00003" summary="modify new_randint function and rename to unique_randint">
+      <created>1601581885421</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1601581885421</updated>
+    </task>
+    <task id="LOCAL-00004" summary="start dev branch">
+      <created>1601585325744</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1601585325744</updated>
+    </task>
+    <task id="LOCAL-00005" summary="moved functions from core to cli and get rid of so called magic number in german_examples.py">
+      <created>1601587252278</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1601587252278</updated>
+    </task>
+    <task id="LOCAL-00006" summary="change structure in german_examples.py (inclement more functions) and change propmpt in input_int function">
+      <created>1601644417041</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1601644417041</updated>
+    </task>
+    <task id="LOCAL-00007" summary="finish changing structure">
+      <created>1601719811638</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1601719811638</updated>
+    </task>
+    <task id="LOCAL-00008" summary="cli.py: remove show function and modify number_of_points">
+      <created>1601720668931</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1601720668931</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add some comments">
+      <created>1601824354467</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1601824354467</updated>
+    </task>
+    <task id="LOCAL-00010" summary="german_examples.py: remove get_pair function">
+      <created>1601824802605</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1601824802605</updated>
+    </task>
+    <task id="LOCAL-00011" summary="german_examples.py: remove get_pair function">
+      <created>1601828018636</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1601828018636</updated>
+    </task>
+    <task id="LOCAL-00012" summary="german_examples.py: edit random_example function">
+      <created>1601828661999</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1601828661999</updated>
+    </task>
+    <task id="LOCAL-00013" summary="german_examples.py: edit random_example function">
+      <created>1601830845750</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1601830845750</updated>
+    </task>
+    <task id="LOCAL-00014" summary="german_examples.py: edit random_example function">
+      <created>1601831001165</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1601831001165</updated>
+    </task>
+    <task id="LOCAL-00015" summary="core.py: modify int_to_german function">
+      <created>1601832462061</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1601832462061</updated>
+    </task>
+    <task id="LOCAL-00016" summary="core.py: modify int_to_german function">
+      <created>1601833934528</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1601833934528</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add comments in all files and fixes in german_dates.py">
+      <created>1601841155770</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1601841155770</updated>
+    </task>
+    <task id="LOCAL-00018" summary="edit README.md">
+      <created>1601847819933</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1601847819933</updated>
+    </task>
+    <task id="LOCAL-00019" summary="edit README.md and add README ENGLISH.md">
+      <created>1601852089114</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1601852089114</updated>
+    </task>
+    <task id="LOCAL-00020" summary="edit README.md and add README ENGLISH.md">
+      <created>1601853219769</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1601853219769</updated>
+    </task>
+    <task id="LOCAL-00021" summary="edit german_dates.py">
+      <created>1601905632382</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1601905632382</updated>
+    </task>
+    <task id="LOCAL-00022" summary="edit german_dates.py">
+      <created>1601917195215</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1601917195215</updated>
+    </task>
+    <task id="LOCAL-00023" summary="edit german_dates.py">
+      <created>1601958645135</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1601958645135</updated>
+    </task>
+    <task id="LOCAL-00024" summary="edit core.py">
+      <created>1602014811734</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1602014811734</updated>
+    </task>
+    <task id="LOCAL-00025" summary="replace int_to_german function calls to the GermanNumeral class and remove int_to_german from core.py">
+      <created>1602016348936</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1602016348937</updated>
+    </task>
+    <task id="LOCAL-00026" summary="german_dates.py in process">
+      <created>1602032949369</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1602032949369</updated>
+    </task>
+    <task id="LOCAL-00027" summary="edit german_dates.py">
+      <created>1602071823057</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1602071823057</updated>
+    </task>
+    <task id="LOCAL-00028" summary="edit german_dates.py &amp; core.py">
+      <created>1602078461775</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1602078461776</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="dev-oop" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="modify new_randint function and rename to unique_randint" />
+    <MESSAGE value="start dev branch" />
+    <MESSAGE value="moved functions from core to cli and get rid of so called magic number in german_examples.py" />
+    <MESSAGE value="change structure in german_examples.py (inclement more functions) and change propmpt in input_int function" />
+    <MESSAGE value="finish changing structure" />
+    <MESSAGE value="cli.py: remove show function and modify number_of_points" />
+    <MESSAGE value="add some comments" />
+    <MESSAGE value="german_examples.py: remove get_pair function" />
+    <MESSAGE value="german_examples.py: edit random_example function" />
+    <MESSAGE value="core.py: modify int_to_german function" />
+    <MESSAGE value="add comments in all files and fixes in german_dates.py" />
+    <MESSAGE value="edit README.md" />
+    <MESSAGE value="edit README.md and add README ENGLISH.md" />
+    <MESSAGE value="edit core.py" />
+    <MESSAGE value="replace int_to_german function calls to the GermanNumeral class and remove int_to_german from core.py" />
+    <MESSAGE value="german_dates.py in process" />
+    <MESSAGE value="edit german_dates.py" />
+    <MESSAGE value="edit german_dates.py &amp; core.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit german_dates.py &amp; core.py" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1950" y="635" key="#com.intellij.tools.ToolEditorDialog" timestamp="1601843207098">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="1950" y="635" key="#com.intellij.tools.ToolEditorDialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601843207098" />
+    <state x="1476" y="763" width="888" height="926" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog" timestamp="1601677053257">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="1476" y="763" width="888" height="926" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601677053257" />
+    <state x="693" y="0" key="CommitChangelistDialog2" timestamp="1601846074324">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="693" y="0" key="CommitChangelistDialog2/0.0.3840.2066@0.0.3840.2066" timestamp="1601846074324" />
+    <state x="96" y="100" width="3648" height="1870" key="DiffContextDialog" timestamp="1601576230579">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="96" y="100" width="3648" height="1870" key="DiffContextDialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601576230579" />
+    <state x="1855" y="373" key="FileChooserDialogImpl" timestamp="1601844927933">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="1855" y="373" key="FileChooserDialogImpl/0.0.3840.2066@0.0.3840.2066" timestamp="1601844927933" />
+    <state x="541" y="181" key="Git.Interactive.Rebase.Dialog" timestamp="1601846110376">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="541" y="181" key="Git.Interactive.Rebase.Dialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601846110376" />
+    <state width="2151" height="1139" key="GridCell.Tab.0.bottom" timestamp="1602078699491">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state width="2151" height="1139" key="GridCell.Tab.0.bottom/0.0.3840.2066@0.0.3840.2066" timestamp="1602078699491" />
+    <state width="2151" height="1139" key="GridCell.Tab.0.center" timestamp="1602078699491">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state width="2151" height="1139" key="GridCell.Tab.0.center/0.0.3840.2066@0.0.3840.2066" timestamp="1602078699491" />
+    <state width="2151" height="1139" key="GridCell.Tab.0.left" timestamp="1602078699490">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state width="2151" height="1139" key="GridCell.Tab.0.left/0.0.3840.2066@0.0.3840.2066" timestamp="1602078699490" />
+    <state width="2151" height="1139" key="GridCell.Tab.0.right" timestamp="1602078699491">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state width="2151" height="1139" key="GridCell.Tab.0.right/0.0.3840.2066@0.0.3840.2066" timestamp="1602078699491" />
+    <state x="380" y="176" key="MergeDialog" timestamp="1601151392488">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="380" y="176" key="MergeDialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601151392488" />
+    <state x="919" y="386" key="MultipleFileMergeDialog" timestamp="1601853296492">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="919" y="386" key="MultipleFileMergeDialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601853296492" />
+    <state x="1234" y="112" width="1390" height="1846" key="RollbackChangesDialog" timestamp="1601905603272">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="1234" y="112" width="1390" height="1846" key="RollbackChangesDialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601905603272" />
+    <state x="516" y="0" width="2907" height="2066" key="SettingsEditor" timestamp="1601845681051">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="516" y="0" width="2907" height="2066" key="SettingsEditor/0.0.3840.2066@0.0.3840.2066" timestamp="1601845681051" />
+    <state x="816" y="317" width="2208" height="1518" key="Vcs.Push.Dialog.v2" timestamp="1602016354910">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="816" y="317" width="2208" height="1518" key="Vcs.Push.Dialog.v2/0.0.3840.2066@0.0.3840.2066" timestamp="1602016354910" />
+    <state x="1334" y="831" width="1198" height="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1601902369030">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="1334" y="831" width="1198" height="445" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.3840.2066@0.0.3840.2066" timestamp="1601902369030" />
+    <state x="1195" y="142" key="git4idea.branch.GitSmartOperationDialog" timestamp="1601837182375">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="1195" y="142" key="git4idea.branch.GitSmartOperationDialog/0.0.3840.2066@0.0.3840.2066" timestamp="1601837182375" />
+    <state x="793" y="0" width="2248" height="2060" key="search.everywhere.popup" timestamp="1601835672029">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="793" y="0" width="2248" height="2060" key="search.everywhere.popup/0.0.3840.2066@0.0.3840.2066" timestamp="1601835672029" />
+  </component>
+</project>
