@@ -142,17 +142,24 @@ class GermanNumeral(str):
         return str(result)
 
 
+log = {}
+
+
 # Returns a random number and uses a list with already used values to avoid repetitions
-def unique_randint(min_val, max_val, log):
+def unique_randint(min_val, max_val, log_key):
     available_values = []
+    if not log.get(log_key):
+        log[log_key] = []
+
     for i in range(min_val, max_val + 1):
         # Filling the list with numbers that haven't been used yet.
         # We take a slice of the log file to take only the required range.
         # This way, repeats can only occur after all other available values have run out
-        if i not in log[-len(range(min_val, max_val)):]:
+        if i not in log[log_key][-len(range(min_val, max_val)):]:
             available_values.append(i)
     value = random.choice(available_values)
-    log.append(value)
+    log[log_key].append(value)
+    print(log)
     return value
 
 

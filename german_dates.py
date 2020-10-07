@@ -33,7 +33,7 @@ month_lists = [
 class Date:
     class Day(int):
         def __init__(self, value):
-            self.value = int(value)
+            self.value = value
 
         def german(self):
             if 1 <= self.value <= 19:
@@ -49,7 +49,7 @@ class Date:
 
     class Month(int):
         def __init__(self, value):
-            self.value = int(value)
+            self.value = value
             self.position = value - 1
             self.days_number, self.english, self.german, self.russian = [lst[self.position] for lst in month_lists]
 
@@ -67,22 +67,27 @@ class Date:
                 return f'{core.GermanNumeral(self.value // 100)}hundert{core.GermanNumeral(self.value % 100)}'
 
     def __init__(self, day, month, year):
-        self.day = self.Day(int(day))
-        self.month = self.Month(int(month))
-        self.year = self.Year(int(year))
+        self.day = self.Day(day)
+        self.month = self.Month(month)
+        self.year = self.Year(year)
 
+    # Returns a string value with a date in the format DD.MM.YYYY
     def __str__(self):
         return f'{self.day}.{self.month}.{self.year}'
 
+    # Returns a string value with a date in Russian format
     def russian(self):
         return f'{self.day} {self.month.russian} {self.year} г.'
 
+    # Returns a string value with a date in US format
     def american(self):
         return f'{self.month.english} {self.day}, {self.year}'
 
+    # Returns a string value with a date in German format
     def short_german(self):
         return f'{self.day}. {self.month.german} {self.year}'
 
+    # Returns a string value with a date written by German words
     def german(self):
         return f'{self.day.german()} {self.month.german} {self.year.german()}'
 
@@ -105,6 +110,7 @@ class Date:
 
 
 class Century(int):
+    # Dictionary with for centuries, and the years included in them
     centuries_dict = {
         19: (1800, 1899),
         20: (1900, 1990),
@@ -117,34 +123,26 @@ class Century(int):
 
 
 # Lists where already used values are placed so that they are not repeated
-days_log = []
-months_log = []
-years_log = []
-centuries_log = []
+# days_log = []
+# months_log = []
+# years_log = []
+# centuries_log = []
 
 
-# Dictionary with for centuries, and the years included in them
-# Returns three integer values with elements of random date: day, month and year
+# Returns Date object with random values
 def random_date():
     # Choose number with random month
-    month = core.unique_randint(1, 12, months_log)
+    month = core.unique_randint(1, 12, 'months')
 
     # Generate random day. Take max value from months_dict
-    day = core.unique_randint(1, Date.Month(month).days_number, days_log)
+    day = core.unique_randint(1, Date.Month(month).days_number, 'days')
 
     # Choose century avoiding repeats and define range of years
-    century = Century(core.unique_randint(19, 21, centuries_log))
+    century = Century(core.unique_randint(19, 21, 'centuries'))
 
     # Generate random year
-    year = core.unique_randint(century.min, century.max, years_log)
+    year = core.unique_randint(century.min, century.max, 'years')
     return Date(day, month, year)
-
-
-# Returns a string value with a date in the format DD.MM.YYYY
-# Returns a string value with a date in Russian format
-# Returns a string value with a date in US format
-# Returns a string value with a date in German format
-# Returns a string value with a date written by German words
 
 
 # Returns string value with random dates written in few formats described at the beginning of the file
