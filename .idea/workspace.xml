@@ -25,10 +25,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3d85f98-7c8f-4d38-b824-047be5091d3d" name="Default Changelist" comment="complete changing structure in german_dates.py">
+    <list default="true" id="c3d85f98-7c8f-4d38-b824-047be5091d3d" name="Default Changelist" comment="complete changing structure in project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core.py" beforeDir="false" afterPath="$PROJECT_DIR$/core.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/german_dates.py" beforeDir="false" afterPath="$PROJECT_DIR$/german_dates.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/german_examples.py" beforeDir="false" afterPath="$PROJECT_DIR$/german_examples.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -134,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1602085391229</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="complete changing structure in project">
+      <created>1602105775281</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1602105775281</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -164,24 +169,29 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="inclement log dictionary for random values instead of several lists in every file" />
     <MESSAGE value="complete changing structure in german_dates.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="complete changing structure in german_dates.py" />
+    <MESSAGE value="complete changing structure in project" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete changing structure in project" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="2127" height="944" key="GridCell.Tab.0.bottom" timestamp="1602104734106">
+    <state width="2127" height="944" key="GridCell.Tab.0.bottom" timestamp="1602114886024">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
-    <state width="2127" height="944" key="GridCell.Tab.0.bottom/0.0.3840.2066@0.0.3840.2066" timestamp="1602104734106" />
-    <state width="2127" height="944" key="GridCell.Tab.0.center" timestamp="1602104734106">
+    <state width="2127" height="944" key="GridCell.Tab.0.bottom/0.0.3840.2066@0.0.3840.2066" timestamp="1602114886024" />
+    <state width="2127" height="944" key="GridCell.Tab.0.center" timestamp="1602114886023">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
-    <state width="2127" height="944" key="GridCell.Tab.0.center/0.0.3840.2066@0.0.3840.2066" timestamp="1602104734106" />
-    <state width="2127" height="944" key="GridCell.Tab.0.left" timestamp="1602104734106">
+    <state width="2127" height="944" key="GridCell.Tab.0.center/0.0.3840.2066@0.0.3840.2066" timestamp="1602114886023" />
+    <state width="2127" height="944" key="GridCell.Tab.0.left" timestamp="1602114886023">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
-    <state width="2127" height="944" key="GridCell.Tab.0.left/0.0.3840.2066@0.0.3840.2066" timestamp="1602104734106" />
-    <state width="2127" height="944" key="GridCell.Tab.0.right" timestamp="1602104734106">
+    <state width="2127" height="944" key="GridCell.Tab.0.left/0.0.3840.2066@0.0.3840.2066" timestamp="1602114886023" />
+    <state width="2127" height="944" key="GridCell.Tab.0.right" timestamp="1602114886023">
       <screen x="0" y="0" width="3840" height="2066" />
     </state>
-    <state width="2127" height="944" key="GridCell.Tab.0.right/0.0.3840.2066@0.0.3840.2066" timestamp="1602104734106" />
+    <state width="2127" height="944" key="GridCell.Tab.0.right/0.0.3840.2066@0.0.3840.2066" timestamp="1602114886023" />
+    <state x="816" y="317" key="Vcs.Push.Dialog.v2" timestamp="1602105798423">
+      <screen x="0" y="0" width="3840" height="2066" />
+    </state>
+    <state x="816" y="317" key="Vcs.Push.Dialog.v2/0.0.3840.2066@0.0.3840.2066" timestamp="1602105798423" />
   </component>
 </project>

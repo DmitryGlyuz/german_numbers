@@ -20,28 +20,31 @@ modes_dict = {
 
 
 class Example:
+    # Dictionary with math operations in German
+    operations_dict = {
+        '+': 'plus',
+        '-': 'minus',
+        '*': 'multiplizieren mit',
+        '/': 'geteilt durch'
+    }
+    # Creating a list with pairs of multipliers to use them in random order
     multipliers_list = []
     for m1 in range(2, 10):
         for m2 in range(m1, 10):
             multipliers_list.append((m1, m2))
 
-    class Operation(str):
-        def __init__(self, value):
-            super().__init__()
-            if value not in Operations():
-                raise ValueError
-            self.value = value
-
-        def __str__(self):
-            return str(self.value)
-
-        def german(self):
-            return Operations.operations_dict[self.value]
-
     def __init__(self, x=1, operation="+", y=1, get_random=False, mode='everything'):
+        if operation not in Example.operations_dict.keys():
+            raise ValueError
         if get_random:
-            self.operation = self.Operation(Operations(mode).random())
-            if self.operation in Operations('plus / minus'):
+            # Take a slice from the list of operations or the entire list
+            self.available_operations = list(self.operations_dict.keys())
+            if mode == 'plus / minus':
+                self.available_operations = self.available_operations[:2]
+            elif mode == 'multiply / divide':
+                self.available_operations = self.available_operations[2:]
+            self.operation = core.unique_item(self.available_operations, 'operations')
+            if self.operation in ('+', '-'):
                 (self.x, self.y) = [core.unique_randint(1, 99, 'numbers') for _ in range(2)]
             else:
                 # Take one random pair from generated list
@@ -53,7 +56,7 @@ class Example:
         else:
             self.x = x
             self.y = y
-            self.operation = self.Operation(operation)
+            self.operation = operation
 
         self.z = self.x + self.y if self.operation in ('+', '-') else self.x * self.y
         if self.operation in ('-', '/'):
@@ -62,45 +65,12 @@ class Example:
     def __str__(self):
         return f'{self.x} {self.operation} {self.y} = {self.z}'
 
+    # Returns a string value with an example written in German words
     def german(self):
-        return f'{core.GermanNumeral(self.x)} {self.operation.german()} ' \
+        return f'{core.GermanNumeral(self.x)} {self.operations_dict[self.operation]} ' \
                f'{core.GermanNumeral(self.y)} gleich {core.GermanNumeral(self.z)}'
 
 
-class Operations(tuple):
-    # Dictionary with math operations in German
-    operations_dict = {
-        '+': 'plus',
-        '-': 'minus',
-        '*': 'multiplizieren mit',
-        '/': 'geteilt durch'
-    }
-
-    def __init__(self, mode='everything'):
-        super().__init__()
-        # Take a slice from the list of operations or the entire list
-        if mode == 'everything':
-            self.value = tuple(self.operations_dict.keys())
-        if mode == 'plus / minus':
-            self.value = list(self.operations_dict.keys())[:2]
-        if mode == 'multiply / divide':
-            self.value = list(self.operations_dict.keys())[2:]
-
-    # Returns one of the operations in alternating order
-    def random(self):
-        return core.unique_item(self.value, 'operations')
-
-    def __contains__(self, item):
-        return True if item in self.value else False
-
-    def __str__(self):
-        return f'{self.value}'
-
-
-# Creating a list with pairs of multipliers to use them in random order
-# Returns four elements of a random example: the first number, the operation, the second number, and the result
-# Returns a string value with an example of its parts received as input
-# Returns a string value with an example written in German words
 # Returns two string values with numeric(optionally) lists:
 def get_data(count, mode, numeric=True):
     # Create a list with random examples
