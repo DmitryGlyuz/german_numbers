@@ -12,73 +12,6 @@
 import cli
 import core
 
-
-class Date:
-    # This dictionary contains the number of days in each mouth and names of months in English, German and Russian
-    months_dict = {
-        'days': [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-        'english': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
-                    'November', 'December'],
-        'german': ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
-                   'November', 'Dezember'],
-        'russian': ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
-                    'ноября', 'декабря']
-    }
-
-    def __init__(self, day, month, year):
-        self.day = day
-        self.month = month
-        self.year = year
-        pass
-
-    def __str__(self):
-        if self.month < 10:
-            self.month_string = '0' + str(self.month)
-        else:
-            self.month_string = str(self.month)
-        return f'{self.day}.{self.month_string}.{self.year}'
-
-    def russian(self):
-        return f'{self.day} {self.months_dict["russian"][self.month - 1]} {self.year} г.'
-
-    def american(self):
-        return f'{self.months_dict["english"][self.month - 1]} {self.day}, {self.year}'
-
-    def short_german(self):
-        return f'{self.day}. {self.months_dict["german"][self.month - 1]} {self.year}'
-
-    def german(self):
-        # Convert day to German ordinal
-        day_german = int_to_ordinal(self.day)
-
-        # There are two ways how to write years in German. It depends on century
-        if self.year > 1999:
-            year_german = core.GermanNumeral(self.year)
-        else:
-            year_first_part = int(str(self.year)[:2])
-            year_second_part = int(str(self.year)[2:])
-            year_german = core.GermanNumeral(year_first_part) + 'hundert' + core.GermanNumeral(year_second_part)
-        return f'{day_german} {self.months_dict["german"][self.month - 1]} {year_german}'
-
-    def in_format(self, short=True, us=True, ru=True, short_de=True, de=True):
-        def opt_out(mode, val, tab=False):
-            return f'{"   " if tab else ""}{val if mode else ""}'
-
-        def new_line(mode):
-            return "\n" if mode else ""
-
-        return f'{opt_out(short, self.__str__())}' \
-               f'{opt_out((short and us), " / ")}' \
-               f'{opt_out(us,self.american())}' \
-               f'{new_line((short or us))}' \
-               f'{opt_out(ru, self.russian(), tab=short)}' \
-               f'{new_line((ru and short_de))}' \
-               f'{opt_out(short_de, self.short_german(), tab=short)}' \
-               f'{new_line((short_de and de))}' \
-               f'{opt_out(de, self.german(), tab=short)}\n' \
-
-
-
 # Dictionary with ordinal numbers in German
 ord_numbers_dict = {
     1: 'erste',
@@ -86,22 +19,105 @@ ord_numbers_dict = {
     3: 'dritte',
     7: 'siebte',
     8: 'achte',
-
 }
 
+month_lists = [
+    [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+    ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
+                    'November', 'December'],
+    ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
+                   'November', 'Dezember'],
+    ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
+                    'ноября', 'декабря']
+]
 
-# Convert natural integer (from 1 to 31) to German ordinal number and return with a prefix 'der'
-def int_to_ordinal(number):
-    if 1 <= number <= 19:
-        if number in ord_numbers_dict.keys():
-            ord_number = ord_numbers_dict[number]
-        else:
-            ord_number = core.GermanNumeral(number) + 'te'
-    elif 20 <= number <= 31:
-        ord_number = core.GermanNumeral(number) + 'ste'
-    else:
-        raise ValueError
-    return 'der ' + ord_number
+
+class Date:
+    class Day(int):
+        def __init__(self, value):
+            self.value = value
+
+        def german(self):
+            if 1 <= self.value <= 19:
+                if self.value in ord_numbers_dict.keys():
+                    ord_number = ord_numbers_dict[self.value]
+                else:
+                    ord_number = core.GermanNumeral(self.value) + 'te'
+            elif 20 <= self.value <= 31:
+                ord_number = core.GermanNumeral(self.value) + 'ste'
+            else:
+                raise ValueError
+            return 'der ' + ord_number
+
+    class Month(int):
+        def __init__(self, value):
+            self.value = value
+            self.position = value - 1
+            self.days_number, self.english, self.german, self.russian = [lst[self.position] for lst in month_lists]
+
+        def __str__(self):
+            return f'{self.value}' if self.value < 10 else str(self.value)
+
+    class Year(int):
+        def __init__(self, value):
+            self.value = value
+
+        def german(self):
+            if self.value > 1999:
+                return core.GermanNumeral(self.value)
+            else:
+                return core.GermanNumeral(self.value // 100) + 'hundert' + core.GermanNumeral(self.value % 100)
+
+    def __init__(self, day, month, year):
+        self.day = self.Day(day)
+        self.month = self.Month(month)
+        self.year = self.Year(year)
+
+    def __str__(self):
+        return f'{self.day}.{self.month}.{self.year}'
+
+    def russian(self):
+        return f'{self.day} {self.month.russian} {self.year} г.'
+
+    def american(self):
+        return f'{self.month.english} {self.day}, {self.year}'
+
+    def short_german(self):
+        return f'{self.day}. {self.month.german} {self.year}'
+
+    def german(self):
+        return f'{self.day.german()} {self.month.german} {self.year.german()}'
+
+    def in_format(self, short=True, us=True, ru=True, short_de=True, de=True):
+        def optional_out(mode, val, tab=False):
+            return f'{"   " if tab else ""}{val if mode else ""}'
+
+        def new_line(mode):
+            return "\n" if mode else ""
+
+        return f'{optional_out(short, self.__str__())}' \
+               f'{optional_out((short and us), " / ")}' \
+               f'{optional_out(us, self.american())}' \
+               f'{new_line((short or us))}' \
+               f'{optional_out(ru, self.russian(), tab=short)}' \
+               f'{new_line((ru and short_de))}' \
+               f'{optional_out(short_de, self.short_german(), tab=short)}' \
+               f'{new_line((short_de and de))}' \
+               f'{optional_out(de, self.german(), tab=short)}\n'
+
+
+class Century(int):
+    centuries_dict = {
+        19: (1800, 1899),
+        20: (1900, 19990),
+        21: (2000, 2030)
+    }
+
+    def __init__(self, value):
+        self.value = value
+        self.min, self.max = self.centuries_dict[value]
+
+
 
 
 # Lists where already used values are placed so that they are not repeated
@@ -111,27 +127,19 @@ years_log = []
 centuries_log = []
 
 # Dictionary with for centuries, and the years included in them
-centuries_dict = {
-    19: (1800, 1899),
-    20: (1900, 1999),
-    21: (2000, 2030)
-}
-
-
 # Returns three integer values with elements of random date: day, month and year
 def random_date():
     # Choose number with random month
-    month = core.unique_randint(1, 12, months_log)
+    month = Date.Month(core.unique_randint(1, 12, months_log))
 
     # Generate random day. Take max value from months_dict
-    day = core.unique_randint(1, Date.months_dict['days'][month - 1], days_log)
+    day = core.unique_randint(1, month.days_number, days_log)
 
     # Choose century avoiding repeats and define range of years
-    century = core.unique_randint(19, 21, centuries_log)
-    (min_year, max_year) = centuries_dict[century]
+    century = Century(core.unique_randint(19, 21, centuries_log))
 
     # Generate random year
-    year = core.unique_randint(min_year, max_year, years_log)
+    year = core.unique_randint(century.min, century.max, years_log)
     return Date(day, month, year)
 
 
