@@ -88,7 +88,7 @@ class GermanNumeral(str):
         # We work only with this range
         if number > 999999999999999 or number < 0:
             raise ValueError
-        self.number = number
+        self.number = int(number)
 
         # Divide the number into classes and add them to the list
         self.classes = []
@@ -139,7 +139,7 @@ class GermanNumeral(str):
         # First class of number
         if self.classes[0] != 0:
             result += self.classes[0].german()
-        return result
+        return str(result)
 
 
 # Returns a random number and uses a list with already used values to avoid repetitions

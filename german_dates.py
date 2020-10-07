@@ -7,8 +7,6 @@
 #       ru - Russian format
 #       short_de - German format
 #       de - everything is written as German words
-
-
 import cli
 import core
 
@@ -35,28 +33,28 @@ month_lists = [
 class Date:
     class Day(int):
         def __init__(self, value):
-            self.value = value
+            self.value = int(value)
 
         def german(self):
             if 1 <= self.value <= 19:
                 if self.value in ord_numbers_dict.keys():
                     ord_number = ord_numbers_dict[self.value]
                 else:
-                    ord_number = core.GermanNumeral(self.value) + 'te'
+                    ord_number = f'{core.GermanNumeral(self.value)}te'
             elif 20 <= self.value <= 31:
-                ord_number = core.GermanNumeral(self.value) + 'ste'
+                ord_number = f'{core.GermanNumeral(self.value)}ste'
             else:
                 raise ValueError
             return 'der ' + ord_number
 
     class Month(int):
         def __init__(self, value):
-            self.value = value
+            self.value = int(value)
             self.position = value - 1
             self.days_number, self.english, self.german, self.russian = [lst[self.position] for lst in month_lists]
 
         def __str__(self):
-            return f'{self.value}' if self.value < 10 else str(self.value)
+            return f'0{self.value}' if self.value < 10 else str(self.value)
 
     class Year(int):
         def __init__(self, value):
@@ -66,12 +64,12 @@ class Date:
             if self.value > 1999:
                 return core.GermanNumeral(self.value)
             else:
-                return core.GermanNumeral(self.value // 100) + 'hundert' + core.GermanNumeral(self.value % 100)
+                return f'{core.GermanNumeral(self.value // 100)}hundert{core.GermanNumeral(self.value % 100)}'
 
     def __init__(self, day, month, year):
-        self.day = self.Day(day)
-        self.month = self.Month(month)
-        self.year = self.Year(year)
+        self.day = self.Day(int(day))
+        self.month = self.Month(int(month))
+        self.year = self.Year(int(year))
 
     def __str__(self):
         return f'{self.day}.{self.month}.{self.year}'
@@ -109,7 +107,7 @@ class Date:
 class Century(int):
     centuries_dict = {
         19: (1800, 1899),
-        20: (1900, 19990),
+        20: (1900, 1990),
         21: (2000, 2030)
     }
 
@@ -118,22 +116,21 @@ class Century(int):
         self.min, self.max = self.centuries_dict[value]
 
 
-
-
 # Lists where already used values are placed so that they are not repeated
 days_log = []
 months_log = []
 years_log = []
 centuries_log = []
 
+
 # Dictionary with for centuries, and the years included in them
 # Returns three integer values with elements of random date: day, month and year
 def random_date():
     # Choose number with random month
-    month = Date.Month(core.unique_randint(1, 12, months_log))
+    month = core.unique_randint(1, 12, months_log)
 
     # Generate random day. Take max value from months_dict
-    day = core.unique_randint(1, month.days_number, days_log)
+    day = core.unique_randint(1, Date.Month(month).days_number, days_log)
 
     # Choose century avoiding repeats and define range of years
     century = Century(core.unique_randint(19, 21, centuries_log))
@@ -161,8 +158,8 @@ def get_data(count, **kwargs):
 # Command line interface
 if __name__ == '__main__':
     # Input required number of examples
-    number_of_dates = cli.number_of_points('dates', 1, 100)
+    # number_of_dates = cli.number_of_points('dates', 1, 100)
     # Print these days
-    print(get_data(number_of_dates))
+    # print(get_data(number_of_dates))
     print(get_data(5))
 
