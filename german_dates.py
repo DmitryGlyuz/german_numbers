@@ -86,9 +86,9 @@ class Date:
             self.value = value
             self.min, self.max = self.centuries_dict[value]
 
-    def __init__(self, day=1, month=1, year=2000, century=21, random=False):
+    def __init__(self, day=1, month=1, year=2000, century=21, get_random=False):
         self.day = self.Day(day)
-        if random:
+        if get_random:
             self.month = self.Month(core.unique_randint(1, 12, 'months'))
             self.day = self.Day(core.unique_randint(1, self.month.days_number, 'days'))
             self.century = self.Century(core.unique_randint(19, 21, 'centuries'))
@@ -137,7 +137,7 @@ class Date:
 
 # Returns string value with random dates written in few formats described at the beginning of the file
 def get_data(count, **kwargs):
-    return core.get_lines([Date(random=True).in_format(**kwargs) for _ in range(count)])
+    return core.get_lines([Date(get_random=True).in_format(**kwargs) for _ in range(count)])
 
 
 # Command line interface
