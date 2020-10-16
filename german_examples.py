@@ -20,6 +20,10 @@ modes_dict = {
 
 
 class Example:
+    """
+     Takes two numbers and mathematical operation or generates them randomly.
+    Calculates result and shows it by numbers and in German words.
+    """
     # Dictionary with math operations in German
     operations_dict = {
         '+': 'plus',
@@ -34,8 +38,10 @@ class Example:
             multipliers_list.append((m1, m2))
 
     def __init__(self, x=1, operation="+", y=1, get_random=False, mode='everything'):
+        # Check if operation value is correct
         if operation not in Example.operations_dict.keys():
             raise ValueError
+        # Example object can take custom values or generate randoms
         if get_random:
             # Take a slice from the list of operations or the entire list
             self.available_operations = list(self.operations_dict.keys())
@@ -58,10 +64,12 @@ class Example:
             self.y = y
             self.operation = operation
 
+        # Calculate the result
         self.z = self.x + self.y if self.operation in ('+', '-') else self.x * self.y
         if self.operation in ('-', '/'):
             (self.x, self.z) = (self.z, self.x)
 
+    # Returns a string with an example in simple format by numbers
     def __str__(self):
         return f'{self.x} {self.operation} {self.y} = {self.z}'
 
@@ -73,8 +81,10 @@ class Example:
 
 # Returns two string values with numeric(optionally) lists:
 def get_data(count, mode, numeric=True):
-    # Create a list with random examples
+    # Create a list with random examples (Example objects)
     examples_list = ([Example(get_random=True, mode=mode) for _ in range(count)])
+
+    # Strings with numeric lists - simple format and German:
     lines_examples = core.get_lines(examples_list, numeric)
     lines_german = core.get_lines([example.german() for example in examples_list], numeric)
     return lines_examples, lines_german

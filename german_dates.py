@@ -14,8 +14,9 @@ import core
 class Date:
     """' Contains the date, its components, and all the logic for output in the required form """
     class Day(int):
+        """ Contains a dictionary with ordinal form of numbers and method which converts integers to German ordinals"""
         # Dictionary with ordinal numbers in German
-        ord_numbers_dict = {
+        ordinal_numbers = {
             1: 'erste',
             2: 'zweite',
             3: 'dritte',
@@ -27,25 +28,34 @@ class Date:
             super().__init__()
             self.value = value
 
+        # Returns German ordinal number
         def german(self):
             if 1 <= self.value <= 19:
-                if self.value in self.ord_numbers_dict.keys():
-                    ord_number = self.ord_numbers_dict[self.value]
+                # Take directly from a dictionary
+                if self.value in self.ordinal_numbers.keys():
+                    ord_number = self.ordinal_numbers[self.value]
+                # Or do simple transformation
                 else:
                     ord_number = f'{core.GermanNumeral(self.value)}te'
             elif 20 <= self.value <= 31:
                 ord_number = f'{core.GermanNumeral(self.value)}ste'
+            # We work only with numbers which could be a day in month: 1- 31
             else:
                 raise ValueError
             return 'der ' + ord_number
 
     class Month(int):
+        """ Contains lists of months to get translation and info about number of days included in month"""
         month_lists = [
+            # Number of days in each month
             [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+            # English
             ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October',
              'November', 'December'],
+            # German
             ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober',
              'November', 'Dezember'],
+            # Russian
             ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября',
              'ноября', 'декабря']
         ]
@@ -54,8 +64,11 @@ class Date:
             super().__init__()
             self.value = value
             self.position = value - 1
+
+            # Take few attributes from month_lists
             self.days_number, self.english, self.german, self.russian = [lst[self.position] for lst in self.month_lists]
 
+        # This method is used for show month as a part of some date in format DD.MM.YYYY
         def __str__(self):
             return f'0{self.value}' if self.value < 10 else str(self.value)
 
@@ -65,6 +78,8 @@ class Date:
             self.value = value
 
         def german(self):
+            """ Objects of this class store a year and have a method which show these year in German """
+            # There are two ways how to write the date in German: For 21st century and before
             if self.value > 1999:
                 return core.GermanNumeral(self.value)
             else:
@@ -74,7 +89,7 @@ class Date:
                        f'{core.GermanNumeral(second_part) if second_part > 0 else ""}'
 
     class Century(int):
-        # Dictionary with for centuries, and the years included in them
+        # Dictionary with centuries, and the years included in them
         centuries_dict = {
             19: (1800, 1899),
             20: (1900, 1990),
@@ -84,10 +99,12 @@ class Date:
         def __init__(self, value):
             super().__init__()
             self.value = value
+            # Take range of years from dictionary
             self.min, self.max = self.centuries_dict[value]
 
     def __init__(self, day=1, month=1, year=2000, century=21, get_random=False):
         self.day = self.Day(day)
+        # Data object can take custom values or generate randoms
         if get_random:
             self.month = self.Month(core.unique_randint(1, 12, 'months'))
             self.day = self.Day(core.unique_randint(1, self.month.days_number, 'days'))
@@ -118,10 +135,13 @@ class Date:
     def german(self):
         return f'{self.day.german()} {self.month.german} {self.year.german()}'
 
+    # Returns a string with a date in several formats defined in the parameters. All formats by default
     def in_format(self, short=True, us=True, ru=True, short_de=True, de=True):
+        # Function using in f-string. Returns specified value or mpt depends on selected mode
         def optional_out(mode, val, tab=False):
             return f'{"   " if tab else ""}{val if mode else ""}'
 
+        # The same for new line
         def new_line(mode):
             return "\n" if mode else ""
 

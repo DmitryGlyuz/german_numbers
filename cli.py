@@ -5,6 +5,7 @@ def input_int(prompt, min_n, max_n):
     def print_error(message):
         print(f'Error: {message}. Try again.')
 
+    # Checking whether a number is in the required range
     number = 0
     while number < min_n or number > max_n:
         try:
