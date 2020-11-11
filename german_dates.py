@@ -9,6 +9,7 @@
 #       de - everything is written as German words
 import cli
 import core
+import datetime
 
 
 class Date:
@@ -102,15 +103,20 @@ class Date:
             # Take range of years from dictionary
             self.min, self.max = self.centuries_dict[value]
 
-    def __init__(self, day=1, month=1, year=2000, century=21, get_random=False):
-        self.day = self.Day(day)
-        # Data object can take custom values or generate randoms
+    def __init__(self, day=1, month=1, year=2000, century=21, get_random=False, get_today=False):
+        # Data object can take custom values or generate randoms or current date
         if get_random:
             self.month = self.Month(core.unique_randint(1, 12, 'months'))
             self.day = self.Day(core.unique_randint(1, self.month.days_number, 'days'))
             self.century = self.Century(core.unique_randint(19, 21, 'centuries'))
             self.year = self.Year(core.unique_randint(self.century.min, self.century.max, 'years'))
+        elif get_today:
+            self.today = datetime.date.today()
+            self.day = self.Day(self.today.day)
+            self.month = self.Month(self.today.month)
+            self.year = self.Year(self.today.year)
         else:
+            self.day = self.Day(day)
             self.month = self.Month(month)
             self.year = self.Year(year)
             self.century = self.Century(century)
@@ -157,7 +163,10 @@ class Date:
 
 # Returns string value with random dates written in few formats described at the beginning of the file
 def get_data(count, **kwargs):
-    return core.get_lines([Date(get_random=True).in_format(**kwargs) for _ in range(count)])
+    dates_list = [Date(get_today=True).in_format(**kwargs)]
+    if count > 1:
+        dates_list += [Date(get_random=True).in_format(**kwargs) for _ in range(count - 1)]
+    return core.get_lines(dates_list)
 
 
 # Command line interface
