@@ -52,7 +52,7 @@ class GermanNumeral(str):
             return str(self.value)
 
         def __eq__(self, other):
-            return True if self.value == other else False
+            return self.value == other
 
         # this method converts the number class to German with separate parameters for thousands and large numbers
         def german(self, large=False, thousand=False):
