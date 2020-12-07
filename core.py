@@ -179,8 +179,12 @@ def get_lines(incoming_list, numeric=True):
     number = 1
     for element in incoming_list:
         if numeric is True:
-            output += f'{number}. {element}\n'
+            output += f'{number}.{add_indent(number, len(incoming_list))}{element}\n'
             number += 1
         else:
             output += f'{element}\n'
     return output
+
+
+def add_indent(current_number, max_number):
+    return ' ' + ' ' * (len(str(max_number)) - len(str(current_number)))
