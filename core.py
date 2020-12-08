@@ -174,17 +174,22 @@ def unique_item(incoming_list, log_key):
 
 
 # Returns a string with numeric (optionally) list from a variable of type list
-def get_lines(incoming_list, numeric=True):
+def get_lines(incoming, numeric_list=True):
     output = ''
-    number = 1
-    for element in incoming_list:
-        if numeric is True:
-            output += f'{number}.{add_indent(number, len(incoming_list))}{element}\n'
-            number += 1
-        else:
-            output += f'{element}\n'
+    if type(incoming) == dict:
+        keys_length = [len(str(k)) for k in incoming.keys()]
+        for k, v in incoming.items():
+            indent_length = max(keys_length) - len(str(k)) + 1
+            output += f'{k}{" " * indent_length}{v}\n'
+    elif type(incoming) == list:
+        number = 1
+        for element in incoming:
+            if numeric_list is True:
+                indent_length = len(str(len(incoming))) - len(str(number)) + 1
+                output += f'{number}.{" " * indent_length}{element}\n'
+                number += 1
+            else:
+                output += f'{element}\n'
+    else:
+        raise TypeError
     return output
-
-
-def add_indent(current_number, max_number):
-    return ' ' + ' ' * (len(str(max_number)) - len(str(current_number)))
