@@ -1,4 +1,6 @@
 # This file contains functions for working via the command line
+import core
+
 
 # Input integer & show error message & repeat if something goes wrong
 def input_int(prompt, min_n=1, max_n=999999999999999, default=False, show_default=None, show_range = True):
@@ -33,3 +35,14 @@ def input_int(prompt, min_n=1, max_n=999999999999999, default=False, show_defaul
 def number_of_points(things, min_val, max_va, new_line=False):
     first = '\n' if new_line is True else ''
     return input_int(f'{first}Enter the number of {things}', min_val, max_va)
+
+
+def save_file(incoming_data, file_name):
+    if input(f"Enter 'Y' if you would like to save the data to {file_name}: ").upper() == 'Y':
+        try:
+            core.write_to_file(incoming_data, file_name)
+        except:
+            print('An error occurred while writing to file')
+        else:
+            print(f'The data was saved to {file_name}')
+

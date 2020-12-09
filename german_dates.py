@@ -171,4 +171,6 @@ def get_data(count, **kwargs):
 
 # Command line interface
 if __name__ == '__main__':
-    print(get_data(cli.number_of_points('dates', 1, 100)))
+    dates_list = get_data(cli.number_of_points('dates', 1, 100))
+    print(dates_list)
+    cli.save_file(dates_list, 'dates.txt')

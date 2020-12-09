@@ -193,3 +193,8 @@ def get_lines(incoming, numeric_list=True):
     else:
         raise TypeError
     return output
+
+
+def write_to_file(content,filename):
+    with open(filename, 'w') as text_file:
+        print(content, file=text_file)

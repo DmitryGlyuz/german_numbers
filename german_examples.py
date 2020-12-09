@@ -106,7 +106,6 @@ if __name__ == '__main__':
     examples, german_examples = get_data(number_of_examples, selected_mode)
 
     # Print these lists
-    print(f'\nExamples:\n'
-          f'{examples}\n'
-          f'German words:\n'
-          f'{german_examples}')
+    full_output = f'Examples:\n{examples}\nGerman words:\n{german_examples}'
+    print(f'\n{full_output}')
+    cli.save_file(full_output, 'examples.txt')
