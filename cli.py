@@ -2,25 +2,25 @@
 import core
 
 
-# Input integer & show error message & repeat if something goes wrong
-def input_int(prompt, min_n=1, max_n=999999999999999, default=False, show_default=None, show_range = True):
+# Input integer & show error message & repeat if something goes wrong or use default value (optionally)
+def input_int(prompt, min_n=1, max_n=999999999999999, default=False, show_default=None, show_range=True):
     def print_error(message):
         beginning = 'Error: ' if not default else ''
         ending = f'The default value will be used {default}.' if default else 'Try again.'
         print(f'{beginning}{message}. {ending}')
 
-    # Checking whether a number is in the required range
     if default is not False and show_default is None:
         show_default = True
     number = 0
     prompt_default = f' (default - {default})' if show_default else ''
     prompt_range = f' [{min_n} - {max_n}]' if show_range else ''
+    # Checking whether a number is in the required range
     while not min_n <= number <= max_n:
         error_message = None
         try:
             number = int(input(f'{prompt}{prompt_default}{prompt_range}: '))
             if not min_n <= number <= max_n:
-                error_message = f'Your number less than {min_n}'if number < min_n else f'Your number more than {max_n}'
+                error_message = f'Your number less than {min_n}' if number < min_n else f'Your number more than {max_n}'
                 raise ValueError
         except ValueError:
             if not error_message:
@@ -37,6 +37,7 @@ def number_of_points(things, min_val, max_va, new_line=False):
     return input_int(f'{first}Enter the number of {things}', min_val, max_va)
 
 
+# Simple CL interface for saving data to a file with a predefined name
 def save_file(incoming_data, file_name):
     if input(f"Enter 'Y' if you would like to save the data to {file_name}: ").upper() == 'Y':
         try:
@@ -45,4 +46,3 @@ def save_file(incoming_data, file_name):
             print('An error occurred while writing to file')
         else:
             print(f'The data was saved to {file_name}')
-

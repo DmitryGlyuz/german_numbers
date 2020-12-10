@@ -7,13 +7,15 @@
 #       ru - Russian format
 #       short_de - German format
 #       de - everything is written as German words
+import datetime
+
 import cli
 import core
-import datetime
 
 
 class Date:
     """' Contains the date, its components, and all the logic for output in the required form """
+
     class Day(int):
         """ Contains a dictionary with ordinal form of numbers and method which converts integers to German ordinals"""
         # Dictionary with ordinal numbers in German
@@ -171,6 +173,9 @@ def get_data(count, **kwargs):
 
 # Command line interface
 if __name__ == '__main__':
-    dates_list = get_data(cli.number_of_points('dates', 1, 100))
-    print(dates_list)
-    cli.save_file(dates_list, 'dates.txt')
+    # String variable with the list of dates in all avaiale formats
+    all_formats = get_data(cli.number_of_points('dates', 1, 100))
+
+    # Print & Save to file
+    print(all_formats)
+    cli.save_file(all_formats, 'dates.txt')

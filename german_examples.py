@@ -102,10 +102,14 @@ if __name__ == '__main__':
     # Input required number of examples
     number_of_examples = cli.number_of_points('examples', 1, 100, True)
 
-    # Get two string values with lists
+    # Get two string values with two lists
     examples, german_examples = get_data(number_of_examples, selected_mode)
 
-    # Print these lists
+    # Make variable with all lines: examples by numbers and in German
     full_output = f'Examples:\n{examples}\nGerman words:\n{german_examples}'
+
+    # Print this variable
     print(f'\n{full_output}')
+
+    # Save this variable to file
     cli.save_file(full_output, 'examples.txt')

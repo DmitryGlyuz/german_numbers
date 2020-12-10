@@ -4,35 +4,35 @@ import random
 
 # Dictionary with numbers in German
 numbers_dict = {
-        0: 'null',
-        1: 'eins',
-        2: 'zwei',
-        3: 'drei',
-        4: 'vier',
-        5: 'fünf',
-        6: 'sechs',
-        7: 'sieben',
-        8: 'acht',
-        9: 'neun',
-        10: 'zehn',
-        11: 'elf',
-        12: 'zwölf',
-        13: 'dreizehn',
-        14: 'vierzehn',
-        15: 'fünfzehn',
-        16: 'sechzehn',
-        17: 'siebzehn',
-        18: 'achtzehn',
-        19: 'neunzehn',
-        20: 'zwanzig',
-        30: 'dreißig',
-        40: 'vierzig',
-        50: 'fünfzig',
-        60: 'sechzig',
-        70: 'siebzig',
-        80: 'achtzig',
-        90: 'neunzig'
-    }
+    0: 'null',
+    1: 'eins',
+    2: 'zwei',
+    3: 'drei',
+    4: 'vier',
+    5: 'fünf',
+    6: 'sechs',
+    7: 'sieben',
+    8: 'acht',
+    9: 'neun',
+    10: 'zehn',
+    11: 'elf',
+    12: 'zwölf',
+    13: 'dreizehn',
+    14: 'vierzehn',
+    15: 'fünfzehn',
+    16: 'sechzehn',
+    17: 'siebzehn',
+    18: 'achtzehn',
+    19: 'neunzehn',
+    20: 'zwanzig',
+    30: 'dreißig',
+    40: 'vierzig',
+    50: 'fünfzig',
+    60: 'sechzig',
+    70: 'siebzig',
+    80: 'achtzig',
+    90: 'neunzig'
+}
 
 
 # The main class, objects when created accept integers, convert and output as string values with numbers in German
@@ -173,7 +173,8 @@ def unique_item(incoming_list, log_key):
     return incoming_list[unique_randint(0, len(incoming_list) - 1, log_key)]
 
 
-# Returns a string with numeric (optionally) list from a variable of type list
+# Returns a string with numeric (optionally) list from a variable of type list or dictionary
+# The list is indented so that the items on the right are evenly spaced
 def get_lines(incoming, numeric_list=True):
     output = ''
     if type(incoming) == dict:
@@ -195,6 +196,7 @@ def get_lines(incoming, numeric_list=True):
     return output
 
 
-def write_to_file(content,filename):
-    with open(filename, 'w') as text_file:
+# Saves incoming variable
+def write_to_file(content, file_name):
+    with open(file_name, 'w') as text_file:
         print(content, file=text_file)
