@@ -97,7 +97,7 @@ if __name__ == '__main__':
         print(f'   {k} - {v}')
 
     # Input mode
-    selected_mode = modes_dict[cli.input_int('\nSelect mode', 1, 3)]
+    selected_mode = modes_dict[cli.input_int('\nSelect mode', 1, 3, 3)]
 
     # Input required number of examples
     number_of_examples = cli.number_of_points('examples', 1, 100, True)
