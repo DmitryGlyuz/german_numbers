@@ -3,7 +3,7 @@
 import random
 
 # Dictionary with numbers in German
-numbers_dict = {
+NUMERALS = {
     0: 'null',
     1: 'eins',
     2: 'zwei',
@@ -63,17 +63,17 @@ class GermanNumeral(str):
             if self.hundreds:
                 # If there is only one hundred in the class, write 'hundert' without digit before
                 if 100 < self.hundreds < 1000:
-                    result = numbers_dict[self.hundreds // 100] + result
+                    result = NUMERALS[self.hundreds // 100] + result
                 result += 'hundert'
 
             # Tens & Units
             if self.tens:
                 # the simplest case is if the number is in the dictionary
-                if self.tens + self.units in numbers_dict.keys():
-                    result += numbers_dict[self.tens + self.units]
+                if self.tens + self.units in NUMERALS.keys():
+                    result += NUMERALS[self.tens + self.units]
                 else:
                     # write down the units first, and then the tens
-                    result += numbers_dict[self.units] + 'und' + numbers_dict[self.tens]
+                    result += NUMERALS[self.units] + 'und' + NUMERALS[self.tens]
             else:
                 if self.units > 0:
                     # Take into various cases of writing units with large numbers
@@ -81,7 +81,7 @@ class GermanNumeral(str):
                         last_digit = 'eine' if large and self.value == 1 else 'ein'
                     else:
                         # Or take units from our dictionary
-                        last_digit = numbers_dict[self.units]
+                        last_digit = NUMERALS[self.units]
                     result += last_digit
             return result
 
@@ -103,9 +103,9 @@ class GermanNumeral(str):
     # Main logic for converting to German numerals, also using logic from NumberClass
     def __str__(self):
         # Large numbers
-        # Dictionary with values. Nu,bers in keys are positions in classes_list
+        # Dictionary with values. Numbers in keys are positions in classes_list
         # Here are two elements in pairs: for singular and plural
-        large_numbers_dict = {
+        large_numbers = {
             4: ('Billion', 'Billionen'),
             3: ('Milliarde', 'Milliarden'),
             2: ('Million', 'Millionen')
@@ -113,7 +113,7 @@ class GermanNumeral(str):
         # Start collecting data to this variable
         result = ''
 
-        for key in large_numbers_dict.keys():
+        for key in large_numbers.keys():
             large_value = ''
             # Check whether there is a class of trillions, billions, millions
             if key > (len(self.classes) - 1):
@@ -121,10 +121,8 @@ class GermanNumeral(str):
             else:
                 if self.classes[key]:
                     # Singular or plural
-                    if self.classes[key].units == 1:
-                        large_value = large_numbers_dict[key][0]
-                    else:
-                        large_value = large_numbers_dict[key][1]
+                    tuple_index = 0 if self.classes[key].units == 1 else 1
+                    large_value = large_numbers[key][tuple_index]
                 result += f'{self.classes[key].german(large=True)} {large_value} '
 
         # Thousands
@@ -153,16 +151,11 @@ log = {}
 
 # Returns a random number and uses a list with already used values to avoid repetitions
 def unique_randint(min_val, max_val, log_key):
-    available_values = []
     if not log.get(log_key):
         log[log_key] = []
-
-    for i in range(min_val, max_val + 1):
-        # Filling the list with numbers that haven't been used yet.
-        # We take a slice of the log file to take only the required range.
-        # This way, repeats can only occur after all other available values have run out
-        if i not in log[log_key][-len(range(min_val, max_val)):]:
-            available_values.append(i)
+    required_range = range(min_val, max_val + 1)
+    recent_values = log[log_key][-len(required_range) + 1:]
+    available_values = list(set(required_range) - set(recent_values))
     value = random.choice(available_values)
     log[log_key].append(value)
     return value
@@ -183,14 +176,12 @@ def get_lines(incoming, numeric_list=True):
             indent_length = max(keys_length) - len(str(k)) + 1
             output += f'{k}{" " * indent_length}{v}\n'
     elif type(incoming) == list:
-        number = 1
-        for element in incoming:
-            if numeric_list is True:
-                indent_length = len(str(len(incoming))) - len(str(number)) + 1
-                output += f'{number}.{" " * indent_length}{element}\n'
-                number += 1
-            else:
-                output += f'{element}\n'
+        list_length = len(incoming)
+        for n in range(1, list_length + 1):
+            if numeric_list:
+                indent_length = len(str(list_length)) - len(str(n)) + 1
+                output += f'{n}.{" " * indent_length}'
+            output += f'{incoming[n - 1]}\n'
     else:
         raise TypeError
     return output

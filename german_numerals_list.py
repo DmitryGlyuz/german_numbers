@@ -14,15 +14,14 @@ def add_number(number):
 
 # Add every number from the specified range to numerals_dict
 def add_range(min_value, max_value):
-    # result = {}
     for n in range(min_value, max_value + 1):
         add_number(n)
 
 
 if __name__ == '__main__':
-    print("Enter numbers to fill in the list of numerals\n"
-          "You can enter individual numbers or ranges (two numbers separated by '-')\n"
-          "Press Enter to finish filling\n")
+    print("""Enter numbers to fill in the list of numerals.
+    You can enter individual numbers or ranges (two numbers separated by '-')
+    Press Enter to finish filling""")
 
     user_input = ' '
     while user_input:

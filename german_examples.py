@@ -12,7 +12,7 @@ import cli
 import core
 
 # Dictionary with operating modes
-modes_dict = {
+MODES = {
     1: 'plus / minus',
     2: 'multiply / divide',
     3: 'everything'
@@ -25,26 +25,26 @@ class Example:
     Calculates result and shows it by numbers and in German words.
     """
     # Dictionary with math operations in German
-    operations_dict = {
+    OPERATIONS = {
         '+': 'plus',
         '-': 'minus',
         '*': 'multiplizieren mit',
         '/': 'geteilt durch'
     }
     # Creating a list with pairs of multipliers to use them in random order
-    multipliers_list = []
+    MULTIPLIERS = []
     for m1 in range(2, 10):
         for m2 in range(m1, 10):
-            multipliers_list.append((m1, m2))
+            MULTIPLIERS.append((m1, m2))
 
     def __init__(self, x=1, operation="+", y=1, get_random=False, mode='everything'):
         # Check if operation value is correct
-        if operation not in Example.operations_dict.keys():
+        if operation not in Example.OPERATIONS.keys():
             raise ValueError
         # Example object can take custom values or generate randoms
         if get_random:
             # Take a slice from the list of operations or the entire list
-            self.available_operations = list(self.operations_dict.keys())
+            self.available_operations = list(self.OPERATIONS.keys())
             if mode == 'plus / minus':
                 self.available_operations = self.available_operations[:2]
             elif mode == 'multiply / divide':
@@ -54,7 +54,7 @@ class Example:
                 (self.x, self.y) = [core.unique_randint(1, 99, 'numbers') for _ in range(2)]
             else:
                 # Take one random pair from generated list
-                self.x, self.y = core.unique_item(self.multipliers_list, 'multipliers')
+                self.x, self.y = core.unique_item(self.MULTIPLIERS, 'multipliers')
 
                 # Random order of multipliers
                 if random.getrandbits(1) == 1:
@@ -75,7 +75,7 @@ class Example:
 
     # Returns a string value with an example written in German words
     def german(self):
-        return f'{core.GermanNumeral(self.x)} {self.operations_dict[self.operation]} ' \
+        return f'{core.GermanNumeral(self.x)} {self.OPERATIONS[self.operation]} ' \
                f'{core.GermanNumeral(self.y)} gleich {core.GermanNumeral(self.z)}'
 
 
@@ -93,11 +93,12 @@ def get_data(count, mode, numeric=True):
 # Command line interface
 if __name__ == '__main__':
     print('What operations do you need to output examples with?')
-    for (k, v) in modes_dict.items():
-        print(f'   {k} - {v}')
+    for (k, v) in MODES.items():
+        print(f'\t{k} - {v}')
 
     # Input mode
-    selected_mode = modes_dict[cli.input_int('\nSelect mode', 1, 3, 3)]
+    mode_number = cli.input_int('\nSelect mode', 1, 3, 3)
+    selected_mode = MODES[mode_number]
 
     # Input required number of examples
     number_of_examples = cli.number_of_points('examples', 1, 100, True)
